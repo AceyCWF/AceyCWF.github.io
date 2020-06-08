@@ -132,6 +132,123 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-08T08:34:50.000Z">2020-06-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 859 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/">Docker容器使用</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="Docker客户端"><a href="#Docker客户端" class="headerlink" title="Docker客户端"></a>Docker客户端</h2><h3 id="1、容器使用"><a href="#1、容器使用" class="headerlink" title="1、容器使用"></a>1、容器使用</h3><h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>获取镜像，如果我们本地没有镜像，先pull拉取一个Ubuntu镜像</p>
+<p><code>docker pull ubuntu</code></p>
+<h4 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h4><p>使用ubuntu镜像启动容器 </p>
+<p><code>$ docker run -it ubuntu /bin/bash</code></p>
+<p><strong>docker run ：</strong>创建一个新的容器并运行一个命令</p>
+<p>退出终端输入exit</p>
+<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/1.jpg" alt="结果"></p>
+<p><strong>语法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+
+<p>OPTIONS 选项说明：</p>
+<ul>
+<li><strong>-a stdin:</strong> 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；</li>
+<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong>-i:</strong> 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li><strong>-P:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的高端口</li>
+<li><strong>-p:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
+<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li><strong>–name=”nginx-lb”:</strong> 为容器指定一个名称；</li>
+<li><strong>–dns 8.8.8.8:</strong> 指定容器使用的DNS服务器，默认和宿主一致；</li>
+<li><strong>–dns-search example.com:</strong> 指定容器DNS搜索域名，默认和宿主一致；</li>
+<li><strong>-h “mars”:</strong> 指定容器的hostname；</li>
+<li><strong>-e username=”ritchie”:</strong> 设置环境变量；</li>
+<li><strong>–env-file=[]:</strong> 从指定文件读入环境变量；</li>
+<li><strong>–cpuset=”0-2” or –cpuset=”0,1,2”:</strong> 绑定容器到指定CPU运行；</li>
+<li><strong>-m :</strong>设置容器使用内存最大值；</li>
+<li><strong>–net=”bridge”:</strong> 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
+<li><strong>–link=[]:</strong> 添加链接到另一个容器；</li>
+<li><strong>–expose=[]:</strong> 开放一个端口或一组端口；</li>
+<li><strong>–volume , -v:</strong> 绑定一个卷</li>
+</ul>
+<h4 id="查看所有的容器"><a href="#查看所有的容器" class="headerlink" title="查看所有的容器"></a>查看所有的容器</h4><p><strong>执行命令:</strong> <code>docker ps -a</code></p>
+<p><strong>执行结果：</strong></p>
+<pre><code>[root@baseserver docker]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+2663af2afb45        ubuntu              &quot;/bin/bash&quot;         4 minutes ago       Exited (0) 2 minutes ago                       infallible_leavitt</code></pre><p><strong>启动以停止的容器</strong></p>
+<p><code>docker start [容器id]</code></p>
+<p><strong>停止启动的容器</strong></p>
+<p><code>docker stop [容器id]</code></p>
+<p><strong>重启容器</strong></p>
+<p><code>docker restart [容器id]</code></p>
+<h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><p><strong>执行命令：</strong> <code>$ docker run -itd --name ubuntu-test ubuntu</code></p>
+<p>执行选项增加-d，启动后返回容器id。</p>
+<h4 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h4><p>进入容器有两种方式，执行docker attach或 docker exec命令。</p>
+<p>1、使用docker attach命令进入容器</p>
+<p>使用docker attach命令，如果从这个容器退出，会导致容器的停止。</p>
+<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/2.jpg" alt="docker attach执行结果"></p>
+<p>2、使用docker exec命令进入容器</p>
+<p>使用exec命令，如果从容器退出，不会导致容器停止。</p>
+<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/3.jpg" alt="docker exec执行结果"></p>
+<p><strong>语法：</strong><code>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</code></p>
+<h4 id="导入导出容器"><a href="#导入导出容器" class="headerlink" title="导入导出容器"></a>导入导出容器</h4><h5 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h5><p>导出容器使用<strong>docker export</strong> 命令</p>
+<p><code>$ docker export 2663af2afb45 &gt; ubuntu_bak.tar</code></p>
+<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/4.jpg" alt="docker export导出容器快照"></p>
+<h5 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h5><p>导入容器使用docker import命令</p>
+<p><strong>语法:</strong> <code>docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</code></p>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-c :</strong>应用docker 指令创建镜像；</li>
+<li><strong>-m :</strong>提交时的说明文字；</li>
+</ul>
+<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/5.jpg" alt="docker import导入容器快照"></p>
+<h4 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h4><p>使用docker rm -f 删除容器</p>
+<p><strong>语法：</strong> <code>docker rm [OPTIONS] CONTAINER [CONTAINER...]</code></p>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-f :</strong>通过 SIGKILL 信号强制删除一个运行中的容器。</li>
+<li><strong>-l :</strong>移除容器间的网络连接，而非容器本身。</li>
+<li><strong>-v :</strong>删除与容器关联的卷。</li>
+</ul>
+<p><strong>执行命令删除容器：</strong><code>docker rm -f 2663af2afb45</code></p>
+<p><strong>删除所有已经停止的容器:</strong> <code>docker rm $(docker ps -a -q)</code></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-05-22T03:02:09.000Z">2020-05-22</time>
                 
                 <div class="level-item">
@@ -1033,7 +1150,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            9
+                            10
                         </p>
                     </a>
                 </div>
@@ -1057,7 +1174,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            10
+                            11
                         </p>
                     </a>
                 </div>
@@ -1114,12 +1231,12 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             </li>
         
             <li>
-                <a class="level is-mobile" href="http://dubbo.apache.org/zh-cn/docs/user/preface/background.html" target="_blank" rel="noopener">
+                <a class="level is-mobile" href="https://portal.shadowsocks.nz/aff.php?aff=38990" target="_blank" rel="noopener">
                     <span class="level-left">
-                        <span class="level-item">dubbo官方文档</span>
+                        <span class="level-item">科学上网</span>
                     </span>
                     <span class="level-right">
-                        <span class="level-item tag">dubbo.apache.org</span>
+                        <span class="level-item tag">portal.shadowsocks.nz</span>
                     </span>
                 </a>
             </li>
@@ -1131,6 +1248,17 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">lingcoder.gitee.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://dubbo.apache.org/zh-cn/docs/user/preface/background.html" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">dubbo官方文档</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">dubbo.apache.org</span>
                     </span>
                 </a>
             </li>
@@ -1171,7 +1299,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li>
             </ul>
@@ -1184,7 +1312,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 15px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 15px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a>
     </div>
 </div>
     
@@ -1196,6 +1324,25 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker容器使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T08:34:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker容器使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1273,25 +1420,6 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="MySQL date,datetime,timestamp的区别">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-04T09:20:38.000Z">2020-03-04</time></div>
-                    <a href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">MySQL date,datetime,timestamp的区别</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MySQL/">MySQL</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -1302,6 +1430,17 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/05/">
@@ -1348,6 +1487,13 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Dubbo/">
@@ -1443,6 +1589,25 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
         
         <article class="media">
             
+            <a href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker容器使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T08:34:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker容器使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="idea重写toString模版">
@@ -1517,25 +1682,6 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="MySQL date,datetime,timestamp的区别">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-04T09:20:38.000Z">2020-03-04</time></div>
-                    <a href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">MySQL date,datetime,timestamp的区别</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MySQL/">MySQL</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1546,6 +1692,17 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/05/">
@@ -1592,6 +1749,13 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Dubbo/">
