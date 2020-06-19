@@ -7,23 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>myBatis的jdbcType和javaType，mySQL的对应类型 - AceyCWF</title>
+<title>设计模式-2.抽象工厂模式 - AceyCWF</title>
 
 
-    <meta name="description" content="JdbcType简介数据库列字段都是有类型的，不同的数据库有不同的类型。为了表示这些数据类型，Java 源码是采用枚举来定义的 package java.sql; public enum JDBCType implements SQLType {     INTEGER(Types.INTEGER),     DOUBLE(Types.DOUBLE),     VARCHAR(Types.VARC">
+    <meta name="description" content="抽象工厂模式相对于简单工厂模式来说，抽象工厂模式针对于多种对象多个工厂，但是原理都是工厂模式，操作类似。 抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂的其他工厂。该超级工厂又称为其他工厂。这种类型的设计模式属于创建模型模式，它提供了一种创建对象的最佳方式； 在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显示指定它们的类，每个生成的工厂都能按照工厂模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="myBatis的jdbcType和javaType，mySQL的对应类型">
-<meta property="og:url" content="http://cwfsv.cn/2020/03/04/myBatis%E7%9A%84jdbcType%E5%92%8CjavaType%EF%BC%8CmySQL%E7%9A%84%E5%AF%B9%E5%BA%94%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:title" content="设计模式-2.抽象工厂模式">
+<meta property="og:url" content="http://cwfsv.cn/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="JdbcType简介数据库列字段都是有类型的，不同的数据库有不同的类型。为了表示这些数据类型，Java 源码是采用枚举来定义的 package java.sql; public enum JDBCType implements SQLType {     INTEGER(Types.INTEGER),     DOUBLE(Types.DOUBLE),     VARCHAR(Types.VARC">
+<meta property="og:description" content="抽象工厂模式相对于简单工厂模式来说，抽象工厂模式针对于多种对象多个工厂，但是原理都是工厂模式，操作类似。 抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂的其他工厂。该超级工厂又称为其他工厂。这种类型的设计模式属于创建模型模式，它提供了一种创建对象的最佳方式； 在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显示指定它们的类，每个生成的工厂都能按照工厂模">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
-<meta property="article:published_time" content="2020-03-04T08:19:40.000Z">
-<meta property="article:modified_time" content="2020-05-21T06:36:59.165Z">
+<meta property="article:published_time" content="2020-06-19T01:47:57.000Z">
+<meta property="article:modified_time" content="2020-06-19T03:33:50.698Z">
 <meta property="article:author" content="陈伟锋">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="MySQL">
-<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
 
@@ -83,7 +82,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="myBatis的jdbcType和javaType，mySQL的对应类型" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="设计模式-2.抽象工厂模式" height="28">
             
             </a>
         </div>
@@ -136,7 +135,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-04T08:19:40.000Z">2020-03-04</time>
+                <time class="level-item has-text-grey" datetime="2020-06-19T01:47:57.000Z">2020-06-19</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/java/">java</a>
@@ -146,7 +145,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 247 个字)
+                    4 分钟 读完 (大约 601 个字)
                 </span>
                 
                 
@@ -155,117 +154,43 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                myBatis的jdbcType和javaType，mySQL的对应类型
+                设计模式-2.抽象工厂模式
             
         </h1>
         <div class="content">
-            <h3 id="JdbcType简介"><a href="#JdbcType简介" class="headerlink" title="JdbcType简介"></a>JdbcType简介</h3><p>数据库列字段都是有类型的，不同的数据库有不同的类型。为了表示这些数据类型，Java 源码是采用枚举来定义的</p>
-<pre><code>package java.sql;
-public enum JDBCType implements SQLType {
-    INTEGER(Types.INTEGER),
-    DOUBLE(Types.DOUBLE),
-    VARCHAR(Types.VARCHAR),
-    TIMESTAMP(Types.TIMESTAMP),
-    ......
-}</code></pre><p>枚举变量也是有类型的，也是有值的，正如整数变量是整数类型，也有值大小一样，上述枚举变量值的定义是通过 Types 来描述刻画的。</p>
-<pre><code>public class Types {
-    public final static int INTEGER         =   4;
-    public final static int DOUBLE          =   8;
-    public final static int VARCHAR         =  12;
-    public final static int TIMESTAMP       =  93;
-｝</code></pre><h3 id="MyBatis包含的JdbcType"><a href="#MyBatis包含的JdbcType" class="headerlink" title="MyBatis包含的JdbcType"></a>MyBatis包含的JdbcType</h3><pre><code>BIT         FLOAT      CHAR           TIMESTAMP       OTHER       UNDEFINED
-TINYINT     REAL       VARCHAR        BINARY          BLOB        NVARCHAR
-SMALLINT    DOUBLE     LONGVARCHAR    VARBINARY       CLOB        NCHAR
-INTEGER     NUMERIC    DATE           LONGVARBINARY   BOOLEAN     NCLOB
-BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
-<thead>
-<tr>
-<th align="left">JdbcType</th>
-<th align="center">JavaType</th>
-<th align="right">MySqlType</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">CHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">VARCHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">LONGVARCHAR</td>
-<td align="center">String</td>
-<td align="right">VARCHAR</td>
-</tr>
-<tr>
-<td align="left">NUMERIC</td>
-<td align="center">BigDecimal</td>
-<td align="right">NUMERIC</td>
-</tr>
-<tr>
-<td align="left">TINYINT</td>
-<td align="center">byte</td>
-<td align="right">TINYINT</td>
-</tr>
-<tr>
-<td align="left">SMALLINT</td>
-<td align="center">short</td>
-<td align="right">SMALLINT</td>
-</tr>
-<tr>
-<td align="left">INTEGER</td>
-<td align="center">int</td>
-<td align="right">INTEGER</td>
-</tr>
-<tr>
-<td align="left">BIGINT</td>
-<td align="center">long</td>
-<td align="right">BIGINT</td>
-</tr>
-<tr>
-<td align="left">REAL</td>
-<td align="center">float</td>
-<td align="right">REAL</td>
-</tr>
-<tr>
-<td align="left">FLOAT</td>
-<td align="center">double</td>
-<td align="right">FLOAT</td>
-</tr>
-<tr>
-<td align="left">DOUBLE</td>
-<td align="center">double</td>
-<td align="right">DOUBLE</td>
-</tr>
-<tr>
-<td align="left">DATE</td>
-<td align="center">java.sql.Date</td>
-<td align="right">DATE</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.sql.Timestamp</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.util.Date</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">CLOB</td>
-<td align="center">Clob</td>
-<td align="right">CLOB</td>
-</tr>
-<tr>
-<td align="left">BLOB</td>
-<td align="center">Blob</td>
-<td align="right">BLOB</td>
-</tr>
-</tbody></table>
+            <h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>相对于简单工厂模式来说，抽象工厂模式针对于多种对象多个工厂，但是原理都是工厂模式，操作类似。</p>
+<p>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂的其他工厂。该超级工厂又称为其他工厂。这种类型的设计模式属于创建模型模式，它提供了一种创建对象的最佳方式；</p>
+<p>在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显示指定它们的类，每个生成的工厂都能按照工厂模式提供对象。</p>
+<p>意图：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<p>主要解决：主要解决接口选择的问题。</p>
+<p>何时使用：系统的产品有多于一个的产品族，而系统只消费其中某一个族的产品。</p>
+<p>如何解决：在一个产品族里面，定义多个产品。</p>
+<p>关键代码：在一个工厂里聚合多个同类产品。</p>
+<p>code：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了个圆"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了一个长方形"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blue</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"蓝"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Green</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"绿"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Red</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"红"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> ((<span class="string">"red"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Red();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"green"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Green();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"blue"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Blue();</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryProducer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractFactory <span class="title">getFactory</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"shape"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ShapeFactory();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"color"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ColorFactory();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AbstractFactory shapeFactory = FactoryProducer.getFactory(<span class="string">"SHAPE"</span>);</span><br><span class="line">        Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line">        shape1.draw();</span><br><span class="line">        Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line">        shape2.draw();</span><br><span class="line"></span><br><span class="line">        AbstractFactory colorFactory = FactoryProducer.getFactory(<span class="string">"COLOR"</span>);</span><br><span class="line">        Color color1 = colorFactory.getColor(<span class="string">"RED"</span>);</span><br><span class="line">        color1.getColoerName();</span><br><span class="line">        Color color2 = colorFactory.getColor(<span class="string">"GREEN"</span>);</span><br><span class="line">        color2.getColoerName();</span><br><span class="line">        Color color3 = colorFactory.getColor(<span class="string">"BLUE"</span>);</span><br><span class="line">        color3.getColoerName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -273,7 +198,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>, <a class="has-link-grey -link" href="/tags/MyBatis/" rel="tag">MyBatis</a>, <a class="has-link-grey -link" href="/tags/MySQL/" rel="tag">MySQL</a>
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>, <a class="has-link-grey -link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
                 </div>
             </div>
         </div>
@@ -320,16 +245,16 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">MySQL date,datetime,timestamp的区别</span>
+                <span class="level-item">设计模式-3.单例模式</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/02/27/SpringBoot%E9%9B%86%E6%88%90RabbitMQ/">
-                <span class="level-item">SpringBoot集成RabbitMQ</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">设计模式-1.工厂模式</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -1091,7 +1016,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="myBatis的jdbcType和javaType，mySQL的对应类型" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="设计模式-2.抽象工厂模式" height="28">
                     
                 </a>
                 <p class="is-size-7">
