@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-03-06T12:14:10.000Z">
-<meta property="article:modified_time" content="2020-05-22T07:10:44.985Z">
+<meta property="article:modified_time" content="2020-06-24T06:42:43.727Z">
 <meta property="article:author" content="陈伟锋">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JAXB">
@@ -115,6 +115,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -145,7 +149,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    16 分钟 读完 (大约 2403 个字)
+                    16 分钟 读完 (大约 2404 个字)
                 </span>
                 
                 
@@ -162,6 +166,8 @@
 <p><strong>JAXBContext</strong>：它是程序的入口类，提供了XML/Java绑定的操作，包括marshal、unmarshal等。</p>
 <p><strong>Marshaller</strong>：它负责把Java对象序列化为对应的XML。</p>
 <p><strong>Unmarshaller</strong>：它负责把XML反序列化为对应的Java对象。</p>
+<a id="more"></a>
+
 <h2 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h2><h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、获取一个基于某个class的JAXBContext，即JAXB上下文</span></span><br><span class="line">JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());</span><br><span class="line"><span class="comment">//2、从上下文中获取Marshaller对象，用作将bean(转换)为xml</span></span><br><span class="line">Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line"><span class="comment">//3、设置一些序列化时需要的指定的配置</span></span><br><span class="line"><span class="comment">//编码格式 （默认编码就是utf-8）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_ENCODING, <span class="string">"UTF-8"</span>);</span><br><span class="line"><span class="comment">//是否格式化生成的xml串,即按标签自动换行，否则就是一行输出</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);</span><br><span class="line"><span class="comment">//是否省略xm头声明信息 默认不省略（false）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);</span><br><span class="line">StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line"><span class="comment">//4、将对象进行序列化</span></span><br><span class="line">marshaller.marshal(obj, writer);</span><br><span class="line">String result = writer.toString();</span><br><span class="line">System.out.println(<span class="string">"JavaBean转xml:"</span> + result);</span><br></pre></td></tr></table></figure>
 
 <p>1、  创建一个JAXB上下文对象。</p>
@@ -341,7 +347,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -401,6 +407,98 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#JAXBContext介绍">
+        <span class="has-mr-6">1</span>
+        <span>JAXBContext介绍</span>
+        </a></li><li>
+        <a class="is-flex" href="#序列化与反序列化">
+        <span class="has-mr-6">2</span>
+        <span>序列化与反序列化</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#序列化">
+        <span class="has-mr-6">2.1</span>
+        <span>序列化</span>
+        </a></li><li>
+        <a class="is-flex" href="#JavaBean实例类">
+        <span class="has-mr-6">2.2</span>
+        <span>JavaBean实例类</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试方法">
+        <span class="has-mr-6">2.3</span>
+        <span>测试方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#反序列化">
+        <span class="has-mr-6">2.4</span>
+        <span>反序列化</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAXB工具类">
+        <span class="has-mr-6">2.5</span>
+        <span>JAXB工具类</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#注解">
+        <span class="has-mr-6">3</span>
+        <span>注解</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#XmlRootElement">
+        <span class="has-mr-6">3.1</span>
+        <span>@XmlRootElement</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：">
+        <span class="has-mr-6">3.1.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：">
+        <span class="has-mr-6">3.1.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlElement">
+        <span class="has-mr-6">3.2</span>
+        <span>@XmlElement</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-1">
+        <span class="has-mr-6">3.2.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：-1">
+        <span class="has-mr-6">3.2.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlAttribute">
+        <span class="has-mr-6">3.3</span>
+        <span>@XmlAttribute</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-2">
+        <span class="has-mr-6">3.3.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：-2">
+        <span class="has-mr-6">3.3.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlTransient">
+        <span class="has-mr-6">3.4</span>
+        <span>@XmlTransient</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-3">
+        <span class="has-mr-6">3.4.1</span>
+        <span>作用和用法：</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#JAXB优化">
+        <span class="has-mr-6">4</span>
+        <span>JAXB优化</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -490,7 +588,7 @@
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -503,7 +601,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -661,7 +759,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -710,7 +808,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -930,7 +1028,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -979,7 +1077,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

@@ -152,7 +152,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 792 个字)
+                    5 分钟 读完 (大约 793 个字)
                 </span>
                 
                 
@@ -167,51 +167,16 @@
         <div class="content">
             <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>单例模式（Singleton Pattern）是Java最简单设计模式之一。这种类型的设计模式属于创建型模式，它提供一种常见对象的最佳方式。</p>
 <p>这种模式涉及到一个单一类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象方式，可以直接访问，不需要实例化该类的对象。</p>
-<p>优点：</p>
-<p>​    1、在JAM中，该对象只有一个实例，减少内存开销，省去了new操作符，降低了系统内存的使用频率，减轻GC压力。</p>
-<p>​    2、避免对资源的多重占有，例如写文件这种操作。</p>
-<p>缺点：</p>
-<p>​    1、没有接口，不能继承。一个类值关心 内部逻辑，不关心外部如何实例化。</p>
-<p>使用场景：</p>
-<p>​    1、要求生成唯一序列号。</p>
-<p>​    2、WEB中的计数器，不用每次刷新都在数据库加一次，用单例先缓存起来</p>
-<p>​    3、创建一个对象需要消耗的资源过多，比如I/O于数据库的连接等；</p>
-<p>Code：</p>
-<p>饿汉模式：类加载时就创建了对象，直接使用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 单例模式</span></span><br><span class="line"><span class="comment"> * 饿汉</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SingleObject singleObject = <span class="keyword">new</span> SingleObject();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> singleObject;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>懒汉模式，线程不安全。在多线程中使用的时候，可能会创建多个实例对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject1</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject1 singletObject1;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject1</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singletObject1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">         singletObject1 = <span class="keyword">new</span> SingleObject1();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singletObject1;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject1"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于多线程调用情况下，对获取对象的方法增加一个同步锁 ，可以在多线程中很好的工作。但是大部分情况下不需要同步，效率很低。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject2</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject2 singletObject2;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject2</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> SingleObject2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singletObject2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">         singletObject2 = <span class="keyword">new</span> SingleObject2();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singletObject2;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject2"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用双重校验锁来保证线程安全，这种方式使用双锁机制，在多线程情况下也可以保证高性能。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject3</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SingleObject3 singleObject3;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject3 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singleObject3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">synchronized</span> (SingleObject3<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">            singleObject3 = <span class="keyword">new</span> SingleObject3();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singleObject3;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject3"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObjectTest</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SingleObject singleObject = SingleObject.getInstance();</span><br><span class="line">      singleObject.showMsg();</span><br><span class="line">      SingleObject1 singleObject1 = SingleObject1.getInstance();</span><br><span class="line">      singleObject1.showMsg();</span><br><span class="line">      SingleObject2 singleObject2 = SingleObject2.getInstance();</span><br><span class="line">      singleObject2.showMsg();</span><br><span class="line">      SingleObject3 singleObject3 = SingleObject3.getInstance();</span><br><span class="line">      singleObject3.showMsg();</span><br><span class="line">      System.out.println(singleObject.toString());</span><br><span class="line">      System.out.println(SingleObject.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject1.toString());</span><br><span class="line">      System.out.println(SingleObject1.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject2.toString());</span><br><span class="line">      System.out.println(SingleObject2.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject3.toString());</span><br><span class="line">      System.out.println(SingleObject3.getInstance().toString());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<pre><code>SingleObject
-SingleObject1
-SingleObject2
-SingleObject3
-singleton.SingleObject@1b6d3586
-singleton.SingleObject@1b6d3586
-singleton.SingleObject1@4554617c
-singleton.SingleObject1@4554617c
-singleton.SingleObject2@74a14482
-singleton.SingleObject2@74a14482
-singleton.SingleObject3@1540e19d
-singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别：</p>
-<p>​    1、饿汉式是空间换时间，懒汉式是空间换时间。</p>
-<p>​    2、在多线程访问的时候，懒汉式可能会创建多个对象，而饿汉式不会。</p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -241,7 +206,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 601 个字)
+                    4 分钟 读完 (大约 602 个字)
                 </span>
                 
                 
@@ -257,39 +222,16 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
             <h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>相对于简单工厂模式来说，抽象工厂模式针对于多种对象多个工厂，但是原理都是工厂模式，操作类似。</p>
 <p>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂的其他工厂。该超级工厂又称为其他工厂。这种类型的设计模式属于创建模型模式，它提供了一种创建对象的最佳方式；</p>
 <p>在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显示指定它们的类，每个生成的工厂都能按照工厂模式提供对象。</p>
-<p>意图：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
-<p>主要解决：主要解决接口选择的问题。</p>
-<p>何时使用：系统的产品有多于一个的产品族，而系统只消费其中某一个族的产品。</p>
-<p>如何解决：在一个产品族里面，定义多个产品。</p>
-<p>关键代码：在一个工厂里聚合多个同类产品。</p>
-<p>code：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了个圆"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了一个长方形"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blue</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"蓝"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Green</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"绿"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Red</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"红"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> ((<span class="string">"red"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Red();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"green"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Green();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"blue"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Blue();</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryProducer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractFactory <span class="title">getFactory</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"shape"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ShapeFactory();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"color"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ColorFactory();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AbstractFactory shapeFactory = FactoryProducer.getFactory(<span class="string">"SHAPE"</span>);</span><br><span class="line">        Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line">        shape1.draw();</span><br><span class="line">        Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line">        shape2.draw();</span><br><span class="line"></span><br><span class="line">        AbstractFactory colorFactory = FactoryProducer.getFactory(<span class="string">"COLOR"</span>);</span><br><span class="line">        Color color1 = colorFactory.getColor(<span class="string">"RED"</span>);</span><br><span class="line">        color1.getColoerName();</span><br><span class="line">        Color color2 = colorFactory.getColor(<span class="string">"GREEN"</span>);</span><br><span class="line">        color2.getColoerName();</span><br><span class="line">        Color color3 = colorFactory.getColor(<span class="string">"BLUE"</span>);</span><br><span class="line">        color3.getColoerName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -319,7 +261,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 665 个字)
+                    4 分钟 读完 (大约 666 个字)
                 </span>
                 
                 
@@ -334,37 +276,16 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
         <div class="content">
             <h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>定义一个用于创建产品的接口，由子类决定生产什么产品。</p>
 <p>1、工厂模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，创建对象不会对客户端暴露创建逻辑，并且通过共同的接口来创建新的对象。</p>
-<p>2、应用实例：</p>
-<p>​    1、hibernate更换数据库只需要更换方言以及数据库驱动类</p>
-<p>​    2、你需要一辆汽车，可以直接从工厂里提货，而不用管这辆汽车是怎么做出来的，以及这个汽车里面具体的实现。</p>
-<p>3、优点：</p>
-<p>​    1、一个调用者想创建一个对象，只需要知道名字就可以。</p>
-<p>​    2、扩展性高，如果想增加一个产品，只需要扩展一个工厂类就可以。</p>
-<p>​    3、屏蔽产品的具体实现，调用者只关心产品的接口</p>
-<p>4、缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</p>
-<p>5、作为一个创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过new就可以完成创建的对象，无需使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
-<p>code：</p>
-<p>1、定义一个创建产品的接口 Sender，创建两个实现类SMSSender，EmailSender。一个工厂类SenderFactory。</p>
-<p>Sender接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 发送信息器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>:ccwf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>:2020/6/19 9:23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sender</span> </span>&#123;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 发送消息</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@author</span> ccwf</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@date</span> 2020/6/19 9:24</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> msg</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>短信发送器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SMSSender</span> <span class="keyword">implements</span> <span class="title">Sender</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"短信发送内容:"</span> + msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>邮件发送器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailSender</span> <span class="keyword">implements</span> <span class="title">Sender</span></span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"邮件发送内容:"</span> + msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>工厂类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SenderFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Sender <span class="title">getSender</span><span class="params">(String senderType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"sms"</span>.equals(senderType))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> SMSSender();</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"email"</span>.equals(senderType))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> EmailSender();</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Sender smsSender = SenderFactory.getSender(<span class="string">"sms"</span>);</span><br><span class="line">      smsSender.sendMessage(<span class="string">"短信"</span>);</span><br><span class="line">      Sender emailSender = SenderFactory.getSender(<span class="string">"email"</span>);</span><br><span class="line">      emailSender.sendMessage(<span class="string">"邮件"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果</p>
-<pre><code>短信发送内容:短信
-邮件发送内容:邮件</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -422,7 +343,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -571,7 +492,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -584,7 +505,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -742,7 +663,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -791,7 +712,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -1011,7 +932,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1060,7 +981,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

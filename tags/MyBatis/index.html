@@ -152,7 +152,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 247 个字)
+                    2 分钟 读完 (大约 248 个字)
                 </span>
                 
                 
@@ -173,108 +173,17 @@ public enum JDBCType implements SQLType {
     VARCHAR(Types.VARCHAR),
     TIMESTAMP(Types.TIMESTAMP),
     ......
-}</code></pre><p>枚举变量也是有类型的，也是有值的，正如整数变量是整数类型，也有值大小一样，上述枚举变量值的定义是通过 Types 来描述刻画的。</p>
-<pre><code>public class Types {
-    public final static int INTEGER         =   4;
-    public final static int DOUBLE          =   8;
-    public final static int VARCHAR         =  12;
-    public final static int TIMESTAMP       =  93;
-｝</code></pre><h3 id="MyBatis包含的JdbcType"><a href="#MyBatis包含的JdbcType" class="headerlink" title="MyBatis包含的JdbcType"></a>MyBatis包含的JdbcType</h3><pre><code>BIT         FLOAT      CHAR           TIMESTAMP       OTHER       UNDEFINED
-TINYINT     REAL       VARCHAR        BINARY          BLOB        NVARCHAR
-SMALLINT    DOUBLE     LONGVARCHAR    VARBINARY       CLOB        NCHAR
-INTEGER     NUMERIC    DATE           LONGVARBINARY   BOOLEAN     NCLOB
-BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
-<thead>
-<tr>
-<th align="left">JdbcType</th>
-<th align="center">JavaType</th>
-<th align="right">MySqlType</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">CHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">VARCHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">LONGVARCHAR</td>
-<td align="center">String</td>
-<td align="right">VARCHAR</td>
-</tr>
-<tr>
-<td align="left">NUMERIC</td>
-<td align="center">BigDecimal</td>
-<td align="right">NUMERIC</td>
-</tr>
-<tr>
-<td align="left">TINYINT</td>
-<td align="center">byte</td>
-<td align="right">TINYINT</td>
-</tr>
-<tr>
-<td align="left">SMALLINT</td>
-<td align="center">short</td>
-<td align="right">SMALLINT</td>
-</tr>
-<tr>
-<td align="left">INTEGER</td>
-<td align="center">int</td>
-<td align="right">INTEGER</td>
-</tr>
-<tr>
-<td align="left">BIGINT</td>
-<td align="center">long</td>
-<td align="right">BIGINT</td>
-</tr>
-<tr>
-<td align="left">REAL</td>
-<td align="center">float</td>
-<td align="right">REAL</td>
-</tr>
-<tr>
-<td align="left">FLOAT</td>
-<td align="center">double</td>
-<td align="right">FLOAT</td>
-</tr>
-<tr>
-<td align="left">DOUBLE</td>
-<td align="center">double</td>
-<td align="right">DOUBLE</td>
-</tr>
-<tr>
-<td align="left">DATE</td>
-<td align="center">java.sql.Date</td>
-<td align="right">DATE</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.sql.Timestamp</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.util.Date</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">CLOB</td>
-<td align="center">Clob</td>
-<td align="right">CLOB</td>
-</tr>
-<tr>
-<td align="left">BLOB</td>
-<td align="center">Blob</td>
-<td align="right">BLOB</td>
-</tr>
-</tbody></table>
-
+}</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/04/myBatis%E7%9A%84jdbcType%E5%92%8CjavaType%EF%BC%8CmySQL%E7%9A%84%E5%AF%B9%E5%BA%94%E7%B1%BB%E5%9E%8B/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -332,7 +241,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -481,7 +390,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -494,7 +403,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -652,7 +561,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -701,7 +610,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -921,7 +830,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -970,7 +879,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

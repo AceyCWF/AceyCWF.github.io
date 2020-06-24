@@ -152,7 +152,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 681 个字)
+                    5 分钟 读完 (大约 682 个字)
                 </span>
                 
                 
@@ -171,51 +171,16 @@
 <p>缓存的好处有很多，比如不需要每次使用的时候都通过注册中心获取，注册中心不可用了，不影响消费端的调用，因为本地缓存了一份服务提供者列表。</p>
 <p>Dubbo本地缓存默认采用的文件，会根据注册中心自动在当前用户目录下生成一个缓存文件，类似/root/.dubbo/dubbo-registry-<em>.</em>.<em>.</em>.cache。</p>
 <p>星号表示注册中心的IP地址，当同一台机器上同时启动多个进程，就会出现多个进程争夺此文件的写入权限</p>
-<pre><code>java.io.IOException: Can not lock the registry cache file /root/.dubbo/dubbo-registry-127.0.0.1.cache, ignore and retry later, maybe multi java process use the file, please config: dubbo.registry.file=xxx.properties
-    at com.alibaba.dubbo.registry.support.AbstractRegistry.doSaveProperties(AbstractRegistry.java:193)
-    at com.alibaba.dubbo.registry.support.AbstractRegistry$SaveProperties.run(AbstractRegistry.java:150)
-    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-    at java.lang.Thread.run(Thread.java:748)</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="1、删除缓冲文件"><a href="#1、删除缓冲文件" class="headerlink" title="1、删除缓冲文件"></a>1、删除缓冲文件</h3><p>dubbo的注册缓冲文件默认地址为${user.home}.dubbo\dubbo-registry-<em>.</em>.<em>.</em>.cache，其中${user.home}是计算机的根目录。</p>
-<p>在启动时日志也可以看到，目录为/root</p>
-<pre><code>2020-03-23 14:30:11.561 [main] INFO  org.apache.zookeeper.ZooKeeper - Client environment:user.name=root
-2020-03-23 14:30:11.561 [main] INFO  org.apache.zookeeper.ZooKeeper - Client environment:user.home=/root</code></pre><p>执行命令：</p>
-<pre><code>[root@ds ~]# cd /root/.dubbo/
-[root@ds .dubbo]# ll
-total 904
--rw-r--r-- 1 root root 111768 May 31  2019 dubbo-registry-127.0.0.1.cache
--rw-r--r-- 1 root root      0 May  7  2019 dubbo-registry-127.0.0.1.cache.lock
-[root@ds .dubbo]# rm -rf *</code></pre><p>Windows环境同理</p>
-<pre><code>移动到 C:\Users\用户名\.dubbo 文件夹
-全选删除全部文件夹</code></pre><h3 id="2、为每个服务配置独立的缓冲文件"><a href="#2、为每个服务配置独立的缓冲文件" class="headerlink" title="2、为每个服务配置独立的缓冲文件"></a>2、为每个服务配置独立的缓冲文件</h3><p>通过配置dubbo配置文件来解决。</p>
-<p>配置dubbo registry的file属性，来指定缓冲文件生成的地址及文件名。</p>
-<p>属性描述：使用文件缓存注册中心地址列表及服务提供者列表，应用重启时将基于此文件恢复，注意：两个注册中心不能使用同一文件存储</p>
-<p><a href="http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-registry.html">dubbo-registry配置文档</a></p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">对应URL参数</th>
-<th align="center">类型</th>
-<th align="center">是否必填</th>
-<th align="center">缺省值(默认值)</th>
-<th align="center">作用</th>
-<th>兼容性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">file</td>
-<td align="center">registry.file</td>
-<td align="center">string</td>
-<td align="center">可选</td>
-<td align="center">${user.home}.dubbo\dubbo-registry-<em>.</em>.<em>.</em>.cache</td>
-<td align="center">服务治理</td>
-<td>2.0.0以上版本</td>
-</tr>
-</tbody></table>
-<pre><code>&lt;dubbo:registry id=&quot;register&quot; address=&quot;${dubbo.registry.address}&quot; file=&quot;/var/cache/${dubbo.application.name}.cache&quot;/&gt;</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -273,7 +238,7 @@ total 904
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -422,7 +387,7 @@ total 904
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -435,7 +400,7 @@ total 904
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -593,7 +558,7 @@ total 904
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -642,7 +607,7 @@ total 904
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -862,7 +827,7 @@ total 904
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -911,7 +876,7 @@ total 904
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

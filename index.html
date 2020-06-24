@@ -142,7 +142,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 792 个字)
+                    5 分钟 读完 (大约 793 个字)
                 </span>
                 
                 
@@ -157,51 +157,16 @@
         <div class="content">
             <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>单例模式（Singleton Pattern）是Java最简单设计模式之一。这种类型的设计模式属于创建型模式，它提供一种常见对象的最佳方式。</p>
 <p>这种模式涉及到一个单一类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象方式，可以直接访问，不需要实例化该类的对象。</p>
-<p>优点：</p>
-<p>​    1、在JAM中，该对象只有一个实例，减少内存开销，省去了new操作符，降低了系统内存的使用频率，减轻GC压力。</p>
-<p>​    2、避免对资源的多重占有，例如写文件这种操作。</p>
-<p>缺点：</p>
-<p>​    1、没有接口，不能继承。一个类值关心 内部逻辑，不关心外部如何实例化。</p>
-<p>使用场景：</p>
-<p>​    1、要求生成唯一序列号。</p>
-<p>​    2、WEB中的计数器，不用每次刷新都在数据库加一次，用单例先缓存起来</p>
-<p>​    3、创建一个对象需要消耗的资源过多，比如I/O于数据库的连接等；</p>
-<p>Code：</p>
-<p>饿汉模式：类加载时就创建了对象，直接使用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 单例模式</span></span><br><span class="line"><span class="comment"> * 饿汉</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SingleObject singleObject = <span class="keyword">new</span> SingleObject();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> singleObject;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>懒汉模式，线程不安全。在多线程中使用的时候，可能会创建多个实例对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject1</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject1 singletObject1;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject1</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singletObject1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">         singletObject1 = <span class="keyword">new</span> SingleObject1();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singletObject1;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject1"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于多线程调用情况下，对获取对象的方法增加一个同步锁 ，可以在多线程中很好的工作。但是大部分情况下不需要同步，效率很低。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject2</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject2 singletObject2;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject2</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> SingleObject2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singletObject2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">         singletObject2 = <span class="keyword">new</span> SingleObject2();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singletObject2;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject2"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用双重校验锁来保证线程安全，这种方式使用双锁机制，在多线程情况下也可以保证高性能。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject3</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SingleObject3 singleObject3;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject3 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (singleObject3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">synchronized</span> (SingleObject3<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">            singleObject3 = <span class="keyword">new</span> SingleObject3();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> singleObject3;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"SingleObject3"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObjectTest</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SingleObject singleObject = SingleObject.getInstance();</span><br><span class="line">      singleObject.showMsg();</span><br><span class="line">      SingleObject1 singleObject1 = SingleObject1.getInstance();</span><br><span class="line">      singleObject1.showMsg();</span><br><span class="line">      SingleObject2 singleObject2 = SingleObject2.getInstance();</span><br><span class="line">      singleObject2.showMsg();</span><br><span class="line">      SingleObject3 singleObject3 = SingleObject3.getInstance();</span><br><span class="line">      singleObject3.showMsg();</span><br><span class="line">      System.out.println(singleObject.toString());</span><br><span class="line">      System.out.println(SingleObject.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject1.toString());</span><br><span class="line">      System.out.println(SingleObject1.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject2.toString());</span><br><span class="line">      System.out.println(SingleObject2.getInstance().toString());</span><br><span class="line">      System.out.println(singleObject3.toString());</span><br><span class="line">      System.out.println(SingleObject3.getInstance().toString());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<pre><code>SingleObject
-SingleObject1
-SingleObject2
-SingleObject3
-singleton.SingleObject@1b6d3586
-singleton.SingleObject@1b6d3586
-singleton.SingleObject1@4554617c
-singleton.SingleObject1@4554617c
-singleton.SingleObject2@74a14482
-singleton.SingleObject2@74a14482
-singleton.SingleObject3@1540e19d
-singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别：</p>
-<p>​    1、饿汉式是空间换时间，懒汉式是空间换时间。</p>
-<p>​    2、在多线程访问的时候，懒汉式可能会创建多个对象，而饿汉式不会。</p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -231,7 +196,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 601 个字)
+                    4 分钟 读完 (大约 602 个字)
                 </span>
                 
                 
@@ -247,39 +212,16 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
             <h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>相对于简单工厂模式来说，抽象工厂模式针对于多种对象多个工厂，但是原理都是工厂模式，操作类似。</p>
 <p>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂的其他工厂。该超级工厂又称为其他工厂。这种类型的设计模式属于创建模型模式，它提供了一种创建对象的最佳方式；</p>
 <p>在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显示指定它们的类，每个生成的工厂都能按照工厂模式提供对象。</p>
-<p>意图：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
-<p>主要解决：主要解决接口选择的问题。</p>
-<p>何时使用：系统的产品有多于一个的产品族，而系统只消费其中某一个族的产品。</p>
-<p>如何解决：在一个产品族里面，定义多个产品。</p>
-<p>关键代码：在一个工厂里聚合多个同类产品。</p>
-<p>code：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了个圆"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"画了一个长方形"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blue</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"蓝"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Green</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"绿"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Red</span> <span class="keyword">implements</span> <span class="title">Color</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getColoerName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"红"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> ((<span class="string">"red"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Red();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"green"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Green();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">"blue"</span>).equalsIgnoreCase(color)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Blue();</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryProducer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractFactory <span class="title">getFactory</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"shape"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ShapeFactory();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"color"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ColorFactory();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AbstractFactory shapeFactory = FactoryProducer.getFactory(<span class="string">"SHAPE"</span>);</span><br><span class="line">        Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line">        shape1.draw();</span><br><span class="line">        Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line">        shape2.draw();</span><br><span class="line"></span><br><span class="line">        AbstractFactory colorFactory = FactoryProducer.getFactory(<span class="string">"COLOR"</span>);</span><br><span class="line">        Color color1 = colorFactory.getColor(<span class="string">"RED"</span>);</span><br><span class="line">        color1.getColoerName();</span><br><span class="line">        Color color2 = colorFactory.getColor(<span class="string">"GREEN"</span>);</span><br><span class="line">        color2.getColoerName();</span><br><span class="line">        Color color3 = colorFactory.getColor(<span class="string">"BLUE"</span>);</span><br><span class="line">        color3.getColoerName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -309,7 +251,7 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 665 个字)
+                    4 分钟 读完 (大约 666 个字)
                 </span>
                 
                 
@@ -324,37 +266,16 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
         <div class="content">
             <h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>定义一个用于创建产品的接口，由子类决定生产什么产品。</p>
 <p>1、工厂模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，创建对象不会对客户端暴露创建逻辑，并且通过共同的接口来创建新的对象。</p>
-<p>2、应用实例：</p>
-<p>​    1、hibernate更换数据库只需要更换方言以及数据库驱动类</p>
-<p>​    2、你需要一辆汽车，可以直接从工厂里提货，而不用管这辆汽车是怎么做出来的，以及这个汽车里面具体的实现。</p>
-<p>3、优点：</p>
-<p>​    1、一个调用者想创建一个对象，只需要知道名字就可以。</p>
-<p>​    2、扩展性高，如果想增加一个产品，只需要扩展一个工厂类就可以。</p>
-<p>​    3、屏蔽产品的具体实现，调用者只关心产品的接口</p>
-<p>4、缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</p>
-<p>5、作为一个创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过new就可以完成创建的对象，无需使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
-<p>code：</p>
-<p>1、定义一个创建产品的接口 Sender，创建两个实现类SMSSender，EmailSender。一个工厂类SenderFactory。</p>
-<p>Sender接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 发送信息器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>:ccwf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>:2020/6/19 9:23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sender</span> </span>&#123;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 发送消息</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@author</span> ccwf</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@date</span> 2020/6/19 9:24</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> msg</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>短信发送器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SMSSender</span> <span class="keyword">implements</span> <span class="title">Sender</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"短信发送内容:"</span> + msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>邮件发送器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailSender</span> <span class="keyword">implements</span> <span class="title">Sender</span></span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"邮件发送内容:"</span> + msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>工厂类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SenderFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Sender <span class="title">getSender</span><span class="params">(String senderType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"sms"</span>.equals(senderType))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> SMSSender();</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"email"</span>.equals(senderType))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> EmailSender();</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无匹配的实现类"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Sender smsSender = SenderFactory.getSender(<span class="string">"sms"</span>);</span><br><span class="line">      smsSender.sendMessage(<span class="string">"短信"</span>);</span><br><span class="line">      Sender emailSender = SenderFactory.getSender(<span class="string">"email"</span>);</span><br><span class="line">      emailSender.sendMessage(<span class="string">"邮件"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果</p>
-<pre><code>短信发送内容:短信
-邮件发送内容:邮件</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -403,81 +324,20 @@ singleton.SingleObject3@1540e19d</code></pre><p>饿汉式和懒汉式的区别�
             
         </h1>
         <div class="content">
-            <h2 id="Docker客户端"><a href="#Docker客户端" class="headerlink" title="Docker客户端"></a>Docker客户端</h2><h3 id="1、容器使用"><a href="#1、容器使用" class="headerlink" title="1、容器使用"></a>1、容器使用</h3><h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>获取镜像，如果我们本地没有镜像，先pull拉取一个Ubuntu镜像</p>
+            <h2 id="Docker客户端"><a href="#Docker客户端" class="headerlink" title="Docker客户端"></a>Docker客户端</h2><h3 id="容器使用"><a href="#容器使用" class="headerlink" title="容器使用"></a>容器使用</h3><h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>获取镜像，如果我们本地没有镜像，先pull拉取一个Ubuntu镜像</p>
 <p><code>docker pull ubuntu</code></p>
 <h4 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h4><p>使用ubuntu镜像启动容器 </p>
 <p><code>$ docker run -it ubuntu /bin/bash</code></p>
-<p><strong>docker run ：</strong>创建一个新的容器并运行一个命令</p>
-<p>退出终端输入exit</p>
-<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/1.jpg" alt="结果"></p>
-<p><strong>语法：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
-
-<p>OPTIONS 选项说明：</p>
-<ul>
-<li><strong>-a stdin:</strong> 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；</li>
-<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
-<li><strong>-i:</strong> 以交互模式运行容器，通常与 -t 同时使用；</li>
-<li><strong>-P:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的高端口</li>
-<li><strong>-p:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
-<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
-<li><strong>–name=”nginx-lb”:</strong> 为容器指定一个名称；</li>
-<li><strong>–dns 8.8.8.8:</strong> 指定容器使用的DNS服务器，默认和宿主一致；</li>
-<li><strong>–dns-search example.com:</strong> 指定容器DNS搜索域名，默认和宿主一致；</li>
-<li><strong>-h “mars”:</strong> 指定容器的hostname；</li>
-<li><strong>-e username=”ritchie”:</strong> 设置环境变量；</li>
-<li><strong>–env-file=[]:</strong> 从指定文件读入环境变量；</li>
-<li><strong>–cpuset=”0-2” or –cpuset=”0,1,2”:</strong> 绑定容器到指定CPU运行；</li>
-<li><strong>-m :</strong>设置容器使用内存最大值；</li>
-<li><strong>–net=”bridge”:</strong> 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
-<li><strong>–link=[]:</strong> 添加链接到另一个容器；</li>
-<li><strong>–expose=[]:</strong> 开放一个端口或一组端口；</li>
-<li><strong>–volume , -v:</strong> 绑定一个卷</li>
-</ul>
-<h4 id="查看所有的容器"><a href="#查看所有的容器" class="headerlink" title="查看所有的容器"></a>查看所有的容器</h4><p><strong>执行命令:</strong> <code>docker ps -a</code></p>
-<p><strong>执行结果：</strong></p>
-<pre><code>[root@baseserver docker]# docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
-2663af2afb45        ubuntu              &quot;/bin/bash&quot;         4 minutes ago       Exited (0) 2 minutes ago                       infallible_leavitt</code></pre><p><strong>启动以停止的容器</strong></p>
-<p><code>docker start [容器id]</code></p>
-<p><strong>停止启动的容器</strong></p>
-<p><code>docker stop [容器id]</code></p>
-<p><strong>重启容器</strong></p>
-<p><code>docker restart [容器id]</code></p>
-<h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><p><strong>执行命令：</strong> <code>$ docker run -itd --name ubuntu-test ubuntu</code></p>
-<p>执行选项增加-d，启动后返回容器id。</p>
-<h4 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h4><p>进入容器有两种方式，执行docker attach或 docker exec命令。</p>
-<p>1、使用docker attach命令进入容器</p>
-<p>使用docker attach命令，如果从这个容器退出，会导致容器的停止。</p>
-<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/2.jpg" alt="docker attach执行结果"></p>
-<p>2、使用docker exec命令进入容器</p>
-<p>使用exec命令，如果从容器退出，不会导致容器停止。</p>
-<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/3.jpg" alt="docker exec执行结果"></p>
-<p><strong>语法：</strong><code>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</code></p>
-<h4 id="导入导出容器"><a href="#导入导出容器" class="headerlink" title="导入导出容器"></a>导入导出容器</h4><h5 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h5><p>导出容器使用<strong>docker export</strong> 命令</p>
-<p><code>$ docker export 2663af2afb45 &gt; ubuntu_bak.tar</code></p>
-<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/4.jpg" alt="docker export导出容器快照"></p>
-<h5 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h5><p>导入容器使用docker import命令</p>
-<p><strong>语法:</strong> <code>docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</code></p>
-<p>OPTIONS说明：</p>
-<ul>
-<li><strong>-c :</strong>应用docker 指令创建镜像；</li>
-<li><strong>-m :</strong>提交时的说明文字；</li>
-</ul>
-<p><img src="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/5.jpg" alt="docker import导入容器快照"></p>
-<h4 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h4><p>使用docker rm -f 删除容器</p>
-<p><strong>语法：</strong> <code>docker rm [OPTIONS] CONTAINER [CONTAINER...]</code></p>
-<p>OPTIONS说明：</p>
-<ul>
-<li><strong>-f :</strong>通过 SIGKILL 信号强制删除一个运行中的容器。</li>
-<li><strong>-l :</strong>移除容器间的网络连接，而非容器本身。</li>
-<li><strong>-v :</strong>删除与容器关联的卷。</li>
-</ul>
-<p><strong>执行命令删除容器：</strong><code>docker rm -f 2663af2afb45</code></p>
-<p><strong>删除所有已经停止的容器:</strong> <code>docker rm $(docker ps -a -q)</code></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -507,7 +367,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 163 个字)
+                    1 分钟 读完 (大约 164 个字)
                 </span>
                 
                 
@@ -520,17 +380,17 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
             
         </h1>
         <div class="content">
-            <h3 id="idea重写toString模版"><a href="#idea重写toString模版" class="headerlink" title="idea重写toString模版"></a>idea重写toString模版</h3><p>1、alt+insert 呼出生成选择框</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/1.jpg" alt="选择框"></p>
-<p>2、点击setting 设置</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/2.jpg" alt="选择框"></p>
-<p>3、新增自定义模版</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/3.jpg" alt="选择框"></p>
-<p>4、选择生成toString所使用的模版</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/4.jpg" alt="选择框"></p>
-<h4 id="JSON字符串模版"><a href="#JSON字符串模版" class="headerlink" title="JSON字符串模版"></a>JSON字符串模版</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.<span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> java.lang.StringBuilder sb = <span class="keyword">new</span> java.lang.StringBuilder(<span class="string">"&#123;"</span>);</span><br><span class="line">#set ($i = 0)</span><br><span class="line">#foreach ($member in $members)#if ($i == 0)</span><br><span class="line">sb.append(<span class="string">"#####</span></span><br><span class="line"><span class="string">#else</span></span><br><span class="line">sb.append(",####</span><br><span class="line">#end#if ($member.string || $member.date)</span><br><span class="line">\<span class="string">"$member.name\":\""</span>)</span><br><span class="line">#else</span><br><span class="line">\<span class="string">"$member.name\":"</span>)</span><br><span class="line">#end#if ($member.primitiveArray || $member.objectArray)</span><br><span class="line">.append(java.util.Arrays.toString($member.name));</span><br><span class="line">#elseif ($member.string || $member.date)</span><br><span class="line">.append($member.accessor).append(<span class="string">'\"'</span>);</span><br><span class="line">#else</span><br><span class="line">.append($member.accessor);</span><br><span class="line">#end#set ($i = $i + 1)</span><br><span class="line">#end</span><br><span class="line">sb.append(<span class="string">'&#125;'</span>);</span><br><span class="line"><span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="idea重写toString模版"><a href="#idea重写toString模版" class="headerlink" title="idea重写toString模版"></a>idea重写toString模版</h3>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -560,7 +420,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 421 个字)
+                    3 分钟 读完 (大约 422 个字)
                 </span>
                 
                 
@@ -578,24 +438,16 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
 <p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
 <p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
-<p>安装完成后配置环境变量：</p>
-<p>1、变量名： ERLANG_HOME 变量值： Erlang安装目录</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/1.jpg" alt="新建系统变量"></p>
-<p>2、编辑path变量 在结尾追加%ERLANG_HOME%\bin</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/2.jpg" alt="编辑path变量"></p>
-<p>命令行测试：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ccwf&gt;erl</span><br><span class="line">Eshell V10.<span class="number">7</span>  (abort with ^G)</span><br><span class="line"><span class="number">1</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、安装RabbitMQ"><a href="#2、安装RabbitMQ" class="headerlink" title="2、安装RabbitMQ"></a>2、安装RabbitMQ</h3><p><a href="https://www.rabbitmq.com/install-windows.html">RabbitMQ下载地址</a> ，下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe">RabbitMQV3.8.3.exe</a> 。<br>安装mq的目录不允许有空格及中文。</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/3.jpg" alt="运行服务"></p>
-<h3 id="3、安装RabbitMQ-Pluglins"><a href="#3、安装RabbitMQ-Pluglins" class="headerlink" title="3、安装RabbitMQ-Pluglins"></a>3、安装RabbitMQ-Pluglins</h3><p>使用命令行，cd进入安装目录下的sbin目录，执行命令：rabbitmq-plugins enable rabbitmq_management</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">D:\DevelopSoft\RabbitMQServer\rabbitmq_server<span class="literal">-3</span>.<span class="number">8.3</span>\sbin&gt;rabbitmq<span class="literal">-plugins</span> enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">Enabling plugins on node rabbit@C<span class="literal">-W</span><span class="operator">-F</span>:</span><br><span class="line">rabbitmq_management</span><br><span class="line">The following plugins have been configured:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line">Applying plugin configuration to rabbit@C<span class="literal">-W</span><span class="operator">-F</span>...</span><br><span class="line">The following plugins have been enabled:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line"></span><br><span class="line">started <span class="number">3</span> plugins.</span><br></pre></td></tr></table></figure>
-
-<p>登录管理后台：访问<a href="http://127.0.0.1:15672">http://127.0.0.1:15672</a></p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/4.jpg" alt="默认帐号密码"></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -625,7 +477,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 681 个字)
+                    5 分钟 读完 (大约 682 个字)
                 </span>
                 
                 
@@ -644,51 +496,16 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <p>缓存的好处有很多，比如不需要每次使用的时候都通过注册中心获取，注册中心不可用了，不影响消费端的调用，因为本地缓存了一份服务提供者列表。</p>
 <p>Dubbo本地缓存默认采用的文件，会根据注册中心自动在当前用户目录下生成一个缓存文件，类似/root/.dubbo/dubbo-registry-<em>.</em>.<em>.</em>.cache。</p>
 <p>星号表示注册中心的IP地址，当同一台机器上同时启动多个进程，就会出现多个进程争夺此文件的写入权限</p>
-<pre><code>java.io.IOException: Can not lock the registry cache file /root/.dubbo/dubbo-registry-127.0.0.1.cache, ignore and retry later, maybe multi java process use the file, please config: dubbo.registry.file=xxx.properties
-    at com.alibaba.dubbo.registry.support.AbstractRegistry.doSaveProperties(AbstractRegistry.java:193)
-    at com.alibaba.dubbo.registry.support.AbstractRegistry$SaveProperties.run(AbstractRegistry.java:150)
-    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-    at java.lang.Thread.run(Thread.java:748)</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="1、删除缓冲文件"><a href="#1、删除缓冲文件" class="headerlink" title="1、删除缓冲文件"></a>1、删除缓冲文件</h3><p>dubbo的注册缓冲文件默认地址为${user.home}.dubbo\dubbo-registry-<em>.</em>.<em>.</em>.cache，其中${user.home}是计算机的根目录。</p>
-<p>在启动时日志也可以看到，目录为/root</p>
-<pre><code>2020-03-23 14:30:11.561 [main] INFO  org.apache.zookeeper.ZooKeeper - Client environment:user.name=root
-2020-03-23 14:30:11.561 [main] INFO  org.apache.zookeeper.ZooKeeper - Client environment:user.home=/root</code></pre><p>执行命令：</p>
-<pre><code>[root@ds ~]# cd /root/.dubbo/
-[root@ds .dubbo]# ll
-total 904
--rw-r--r-- 1 root root 111768 May 31  2019 dubbo-registry-127.0.0.1.cache
--rw-r--r-- 1 root root      0 May  7  2019 dubbo-registry-127.0.0.1.cache.lock
-[root@ds .dubbo]# rm -rf *</code></pre><p>Windows环境同理</p>
-<pre><code>移动到 C:\Users\用户名\.dubbo 文件夹
-全选删除全部文件夹</code></pre><h3 id="2、为每个服务配置独立的缓冲文件"><a href="#2、为每个服务配置独立的缓冲文件" class="headerlink" title="2、为每个服务配置独立的缓冲文件"></a>2、为每个服务配置独立的缓冲文件</h3><p>通过配置dubbo配置文件来解决。</p>
-<p>配置dubbo registry的file属性，来指定缓冲文件生成的地址及文件名。</p>
-<p>属性描述：使用文件缓存注册中心地址列表及服务提供者列表，应用重启时将基于此文件恢复，注意：两个注册中心不能使用同一文件存储</p>
-<p><a href="http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-registry.html">dubbo-registry配置文档</a></p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">对应URL参数</th>
-<th align="center">类型</th>
-<th align="center">是否必填</th>
-<th align="center">缺省值(默认值)</th>
-<th align="center">作用</th>
-<th>兼容性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">file</td>
-<td align="center">registry.file</td>
-<td align="center">string</td>
-<td align="center">可选</td>
-<td align="center">${user.home}.dubbo\dubbo-registry-<em>.</em>.<em>.</em>.cache</td>
-<td align="center">服务治理</td>
-<td>2.0.0以上版本</td>
-</tr>
-</tbody></table>
-<pre><code>&lt;dubbo:registry id=&quot;register&quot; address=&quot;${dubbo.registry.address}&quot; file=&quot;/var/cache/${dubbo.application.name}.cache&quot;/&gt;</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -718,7 +535,7 @@ total 904
                 <span class="level-item has-text-grey">
                     
                     
-                    16 分钟 读完 (大约 2403 个字)
+                    16 分钟 读完 (大约 2404 个字)
                 </span>
                 
                 
@@ -735,71 +552,16 @@ total 904
 <p><strong>JAXBContext</strong>：它是程序的入口类，提供了XML/Java绑定的操作，包括marshal、unmarshal等。</p>
 <p><strong>Marshaller</strong>：它负责把Java对象序列化为对应的XML。</p>
 <p><strong>Unmarshaller</strong>：它负责把XML反序列化为对应的Java对象。</p>
-<h2 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h2><h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、获取一个基于某个class的JAXBContext，即JAXB上下文</span></span><br><span class="line">JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());</span><br><span class="line"><span class="comment">//2、从上下文中获取Marshaller对象，用作将bean(转换)为xml</span></span><br><span class="line">Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line"><span class="comment">//3、设置一些序列化时需要的指定的配置</span></span><br><span class="line"><span class="comment">//编码格式 （默认编码就是utf-8）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_ENCODING, <span class="string">"UTF-8"</span>);</span><br><span class="line"><span class="comment">//是否格式化生成的xml串,即按标签自动换行，否则就是一行输出</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);</span><br><span class="line"><span class="comment">//是否省略xm头声明信息 默认不省略（false）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);</span><br><span class="line">StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line"><span class="comment">//4、将对象进行序列化</span></span><br><span class="line">marshaller.marshal(obj, writer);</span><br><span class="line">String result = writer.toString();</span><br><span class="line">System.out.println(<span class="string">"JavaBean转xml:"</span> + result);</span><br></pre></td></tr></table></figure>
-
-<p>1、  创建一个JAXB上下文对象。</p>
-<p>2、  利用JAXB上下文对象创建对应的Marshaller对象。</p>
-<p>3、  指定序列化时的配置参数，具体可以设置的参数和对应的参数的含义可以参考API文档。</p>
-<p>4、  最后一步是将对应的对象序列化到一个Writer、OutputStream、File等输出对象中，具体可以参考Marshaller接口的API文档。</p>
-<p>使用JAXB进行对象的序列化时对应的对象类型必须是<strong>javax.xml.bind.JAXBElement</strong>类型，<br>或者是使用了<strong>javax.xml.bind.annotation.XmlRootElement</strong>注解标注的类型。</p>
-<p><strong>XmlRootElement</strong>用于标注在class上面，表示把一个class映射为一个XML Element对象。<br>与之相配合使用的注解通常还有XmlElement和XmlAttribute。</p>
-<p><strong>XmlElement</strong>注解用于标注在class的属性上，用于把一个class的属性映射为一个XML Element对象。</p>
-<p><strong>XmlAttribute</strong>注解用于标注在class的属性上，用于把一个class的属性映射为其class对应的XML Element上的一个属性。<br>默认情况下，当我们的一个属性没有使用XmlElement标注时也会被序列化为Xml元素的一个子元素，<br>如果我们不希望Java对象中的某个属性被序列化则可以在对应的属性或对应的get方法上采用XMLTransient进行标注。</p>
-<h3 id="JavaBean实例类"><a href="#JavaBean实例类" class="headerlink" title="JavaBean实例类"></a>JavaBean实例类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="keyword">private</span> String addres;</span><br><span class="line">    <span class="keyword">private</span> String area;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, String gender, String addres, String area)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.gender = gender;</span><br><span class="line">        <span class="keyword">this</span>.addres = addres;</span><br><span class="line">        <span class="keyword">this</span>.area = area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.gender = gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAddres</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> addres;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddres</span><span class="params">(String addres)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addres = addres;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getArea</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setArea</span><span class="params">(String area)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.area = area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> +</span><br><span class="line">                <span class="string">"id="</span> + id +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", gender='"</span> + gender + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", addres='"</span> + addres + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", area='"</span> + area + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> JAXBException </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    person.setId(<span class="number">1</span>);</span><br><span class="line">    person.setAddres(<span class="string">"北京市朝阳区xxx"</span>);</span><br><span class="line">    person.setGender(<span class="string">"男"</span>);</span><br><span class="line">    person.setName(<span class="string">"CWF"</span>);</span><br><span class="line">    person.setArea(<span class="string">"北京市"</span>);</span><br><span class="line">    <span class="comment">//1、获取一个基于某个class的JAXBContext，即JAXB上下文</span></span><br><span class="line">    JAXBContext jaxbContext = JAXBContext.newInstance(person.getClass());</span><br><span class="line">    <span class="comment">//2、从上下文中获取Marshaller对象，用作将bean(转换)为xml</span></span><br><span class="line">    Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">    <span class="comment">//3、设置一些序列化时需要的指定的配置</span></span><br><span class="line">    <span class="comment">//编码格式 （默认编码就是utf-8）</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_ENCODING, <span class="string">"UTF-8"</span>);</span><br><span class="line">    <span class="comment">//是否格式化生成的xml串,即按标签自动换行，否则就是一行输出</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);</span><br><span class="line">    <span class="comment">//是否省略xm头声明信息 默认不省略（false）</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);</span><br><span class="line">    StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line">    <span class="comment">//4、将对象进行序列化</span></span><br><span class="line">    marshaller.marshal(person, writer);</span><br><span class="line">    String result = writer.toString();</span><br><span class="line">    System.out.println(<span class="string">"JavaBean转xml:"</span> + result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">JavaBean转xml:</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">    &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String xmlSource = <span class="string">"&lt;?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?&gt;&lt;person&gt;&lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;&lt;area&gt;北京市&lt;/area&gt;&lt;gender&gt;男&lt;/gender&gt;&lt;id&gt;1&lt;/id&gt;&lt;name&gt;CWF&lt;/name&gt;&lt;/person&gt;"</span>;</span><br><span class="line"><span class="comment">//1、创建一个指定class的JAXB上下文对象</span></span><br><span class="line">JAXBContext context = JAXBContext.newInstance(Person<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="comment">//2、通过JAXBContext对象创建对应的Unmarshaller对象。</span></span><br><span class="line">Unmarshaller unmarshaller = context.createUnmarshaller();</span><br><span class="line"><span class="comment">//3、调用Unmarshaller对象的unmarshal方法进行反序列化，接收的参数可以是一个InputStream、Reader、File等</span></span><br><span class="line">StringReader stringReader = <span class="keyword">new</span> StringReader(xmlSource);</span><br><span class="line">Person person = (Person) unmarshaller.unmarshal(stringReader);</span><br><span class="line">System.out.println(person.toString());</span><br></pre></td></tr></table></figure>
-
-<p>Unmarshaller对象在提供了一系列的unmarshal重载方法，对应的参数类型可以是File、InputStream、Reader等，具体的可以查看对应的API文档。</p>
-<h3 id="JAXB工具类"><a href="#JAXB工具类" class="headerlink" title="JAXB工具类"></a>JAXB工具类</h3><p>从jdk1.7开始，JAXB就对解组和编组的方法进行了更简单的封装，所以实际项目中除非自己要进行个性化设置，否则大可不用自己再创建JAXBContext实例，直接通过JAXB静态调用相应的工具方法就行了，于是上面的测试方法可以写的更简练些：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="string">"CWF"</span>,<span class="string">"男"</span>,<span class="string">"北京市朝阳区xxx"</span>,<span class="string">"北京市"</span>);</span><br><span class="line">    StringWriter w = <span class="keyword">new</span> StringWriter();</span><br><span class="line">    JAXB.marshal(person, <span class="keyword">new</span> StreamResult(w));</span><br><span class="line">    String parseResult = w.toString();</span><br><span class="line">    System.out.println(<span class="string">"序列化："</span>+ parseResult);</span><br><span class="line">    StringReader reader = <span class="keyword">new</span> StringReader(parseResult);</span><br><span class="line">    Person person2 = JAXB.unmarshal(reader, Person<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    System.out.println(<span class="string">"反序列化:"</span>+person2.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">序列化：&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">    &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;0&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br><span class="line"></span><br><span class="line">反序列化:Person&#123;id=<span class="number">0</span>, name=<span class="string">'CWF'</span>, gender=<span class="string">'男'</span>, addres=<span class="string">'北京市朝阳区xxx'</span>, area=<span class="string">'北京市'</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><h3 id="XmlRootElement"><a href="#XmlRootElement" class="headerlink" title="@XmlRootElement"></a>@XmlRootElement</h3><h4 id="作用和用法："><a href="#作用和用法：" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p>类级别的注解，将类映射为xml全局元素，也就是根元素。就像spring配置文件中的beans。</p>
-<p>常与 <strong>@XmlType</strong>，<strong>@XmlAccessorType</strong>，<strong>@XmlAccessorOrder连用</strong>。</p>
-<h4 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h4><p>该注解含有<strong>name</strong>和<strong>namespace</strong>两个属性。</p>
-<p>namespace属性用于指定生成的元素所属的命名空间。</p>
-<p>name属性用于指定生成元素的名字，若不指定则默认使用类名小写作为元素名。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@XmlRootElement</span>(name = <span class="string">"xingming"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line"> 生成的xml:</span><br><span class="line"> &lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line"> &lt;xingming&gt;</span><br><span class="line">     &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">     &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">     &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">     &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">     &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line"> &lt;/xingming&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="XmlElement"><a href="#XmlElement" class="headerlink" title="@XmlElement"></a>@XmlElement</h3><h4 id="作用和用法：-1"><a href="#作用和用法：-1" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>字段，方法，参数级别的注解</strong>。<br>该注解可以将被注解的字段(非静态)，或者被注解的get/set方法对应的字段映射为本地元素，也就是子元素。默认使用字段名或get/set方法去掉前缀剩下部分小写作为元素名(在字段名和get/set方法符合命名规范的情况下)。</p>
-<p>常与 <strong>@XmlValue</strong>，<strong>@XmlJavaTypeAdapter</strong>，<strong>@XmlElementWrapper</strong>连用。</p>
-<h4 id="属性：-1"><a href="#属性：-1" class="headerlink" title="属性："></a>属性：</h4><p>属性常用的属性有有：name、nillable、required、namespace、defaultValue</p>
-<p>name属性可以指定生成元素的名字<br>nillable属性可以指定元素的文本值是否可以为空，默认为false。<br>required属性可以指定该元素是否必须出现，默认为false<br>namespace属性可以指定该元素所属的命名空间<br>defaultValue属性可以指定该元素默认的文本值</p>
-<h3 id="XmlAttribute"><a href="#XmlAttribute" class="headerlink" title="@XmlAttribute"></a>@XmlAttribute</h3><h4 id="作用和用法：-2"><a href="#作用和用法：-2" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>字段和方法级别的注解</strong>。该注解会将字段或get/set方法对应的字段映射成本类对应元素的属性，属性名默认使用字段名或get/set方法去掉前缀剩下部分首字母小写(在字段名和get/set方法符合命名规范的情况下)。</p>
-<h4 id="属性：-2"><a href="#属性：-2" class="headerlink" title="属性："></a>属性：</h4><p>该注解有name，required，namespace三个属性。用法和@XmlElement注解相同</p>
-<h3 id="XmlTransient"><a href="#XmlTransient" class="headerlink" title="@XmlTransient"></a>@XmlTransient</h3><h4 id="作用和用法：-3"><a href="#作用和用法：-3" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>类，字段，方法级别的注解</strong>。可使JAXB在映射xml元素时忽略被注解的类，字段，get/set对应字段。<br><strong>需要注意的是该注解与所有其他JAXB注释相互排斥，也就是说与其他注释连用就会报错</strong>。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@XmlTransient</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddres</span><span class="params">(String addres)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.addres = addres;</span><br><span class="line">&#125;</span><br><span class="line">生成xml:</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;area&gt;华北地区&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="JAXB优化"><a href="#JAXB优化" class="headerlink" title="JAXB优化"></a>JAXB优化</h2><p>JAXBContext的实例需要通过JAXBContext.newInstance(..)方法产生，JAXBContext中定义了重载的5个newInstance(..)方法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath, ClassLoader classLoader )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath, ClassLoader classLoader, Map&lt;String,?&gt;  properties  )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( Class... classesToBeBound )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( Class[] classesToBeBound, Map&lt;String,?&gt; properties )</span></span></span><br></pre></td></tr></table></figure>
-
-<p>上述5个方法的区别在于是基于package的还是基于class的。</p>
-<p>contextPath用于指定需要绑定XML的Java类所在的包定义。</p>
-<p>classLoader用于指定使用的类加载器，未指定时将使用当前线程上下文所绑定的类加载器。</p>
-<p>properties用于指定JAXB实现者特定的属性;classesToBeBound用于直接指定需要绑定的Java类。</p>
-<p>每次在创建JAXBContext实例时，JAXBContext内部都需要维护好Java类和XML之间的映射关系，这个操作是十分消耗性能的。但JAXBContext是线程安全的，可以共享。</p>
-<p>测试代码:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    String xmlResult = testServiceImpl.getResourceStr();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">5</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">int</span> times = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;times; i++) &#123;</span><br><span class="line">            JAXBContext jaxbContext = JAXBContext.newInstance(TestRS<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">            marshaller.marshal(<span class="keyword">new</span> TestRS(), <span class="keyword">new</span> StringWriter());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> t2 = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"不共用JAXBContext耗时："</span> + (t2-t1) + <span class="string">"ms"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> t3 = System.currentTimeMillis();</span><br><span class="line">        JAXBContext jaxbContext = JAXBContext.newInstance(TestRS<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;times; i++) &#123;</span><br><span class="line">            Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">            marshaller.marshal(<span class="keyword">new</span> TestRS(), <span class="keyword">new</span> StringWriter());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> t4 = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"共用JAXBContext耗时："</span> + (t4-t3) + <span class="string">"ms"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>循环测试5次，每次分别在共享JAXBContext和不共享JAXBContext的情况下进行五次marshal操作，<br>由于这里我们不关心生成的XML，也避免输出到控制台或文件中的IO影响，这里每次都创建一个StringWriter，StringWriter是基于内存操作的。</p>
-<p>执行结果:<br>不共用JAXBContext耗时：17953ms</p>
-<p>共用JAXBContext耗时：3548ms</p>
-<p>不共用JAXBContext耗时：17406ms</p>
-<p>共用JAXBContext耗时：3414ms</p>
-<p>不共用JAXBContext耗时：19187ms</p>
-<p>共用JAXBContext耗时：3703ms</p>
-<p>不共用JAXBContext耗时：18819ms</p>
-<p>共用JAXBContext耗时：3369ms</p>
-<p>不共用JAXBContext耗时：17401ms</p>
-<p>共用JAXBContext耗时：3728ms</p>
-<p>从测试结果我们可以很明显的看到共享JAXBContext的情况下性能有很明显的提升。<br>共享JAXB时如果我们的所有的应用场景需要使用到的Class比较少时我们可以简单的在创建JAXBContext对象时传递所有需哟使用到的Class，<br>把它保存起来之后都可以一直这样在我们的应用中使用它了。<br>但是如果Class的定义在进行XML转换为Java对象时有冲突就不能这么做了，<br>比如你有一个Person1和Person2两个Person类，它们映射的XML节点都是person，<br>那么在把XML节点person转换为Java对象时是转换为Person1还是Person2呢？<br>有这种场景获取Class相对较多时建议创建一个JaxbUtil工具类，所有的JAXBContext对象都由该工具类产生，在该工具类内部实现JAXBContext的重用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">JAXBContextUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    private <span class="keyword">static</span> <span class="built_in">Map</span>&lt;List&lt;Class&lt;?&gt;&gt;, JAXBContext&gt; jaxbContextMap =  <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public <span class="keyword">static</span> JAXBContext getJAXBContext(Class&lt;?&gt;classes) throws JAXBException &#123;</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; classList = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(classes));</span><br><span class="line">        <span class="keyword">if</span> (!jaxbContextMap.containsKey(classList)) &#123;</span><br><span class="line">            JAXBContext jaxbContext = JAXBContext.newInstance(classes);</span><br><span class="line">            jaxbContextMap.put(classList, jaxbContext);</span><br><span class="line">            <span class="keyword">return</span> jaxbContext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jaxbContextMap.get(classList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是虽然JAXBContext是<strong>线程安全的</strong>，但是它由它产生的<strong>Marshaller</strong>和<strong>Unmarshaller</strong>对象是<strong>线程不安全</strong>的，<strong>切勿进行重用</strong>。</p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/06/JAXBContext%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -829,7 +591,7 @@ total 904
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 281 个字)
+                    2 分钟 读完 (大约 282 个字)
                 </span>
                 
                 
@@ -850,65 +612,16 @@ total 904
 <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>date: 日期  如：2020-03-01 不带时分秒。</p>
 <p>datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。</p>
 <p>timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。</p>
-<h3 id="时间范围"><a href="#时间范围" class="headerlink" title="时间范围"></a>时间范围</h3><p>date:  ‘1000-01-01’ to ‘9999-12-31’</p>
-<p>datetime:  ‘1000-01-01 00:00:00’ to ‘9999-12-31 23:59:59’</p>
-<p>timestamp:  ‘1970-01-01 00:00:01’ UTC to ‘2038-01-19 03:14:07’ UTC</p>
-<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><h4 id="查看当前时间戳"><a href="#查看当前时间戳" class="headerlink" title="查看当前时间戳"></a>查看当前时间戳</h4><pre><code>两种方法
-mysql&gt; select unix_timestamp();
-+------------------+
-| unix_timestamp() |
-+------------------+
-|       1583311205 |
-+------------------+
-1 row in set (0.00 sec)
-
-mysql&gt; select unix_timestamp(now());
-+-----------------------+
-| unix_timestamp(now()) |
-+-----------------------+
-|            1583311215 |
-+-----------------------+
-1 row in set (0.00 sec)</code></pre><h4 id="查看当前时间"><a href="#查看当前时间" class="headerlink" title="查看当前时间"></a>查看当前时间</h4><pre><code>mysql&gt; select now();
-+---------------------+
-| now()               |
-+---------------------+
-| 2020-03-04 16:41:43 |
-+---------------------+
-1 row in set (0.00 sec)</code></pre><h4 id="时间转时间戳"><a href="#时间转时间戳" class="headerlink" title="时间转时间戳"></a>时间转时间戳</h4><pre><code>mysql&gt; select unix_timestamp(&apos;2020-01-01 00:00:00&apos;);
-+---------------------------------------+
-| unix_timestamp(&apos;2020-01-01 00:00:00&apos;) |
-+---------------------------------------+
-|                            1577808000 |
-+---------------------------------------+
-1 row in set (0.00 sec)</code></pre><h4 id="时间戳转时间"><a href="#时间戳转时间" class="headerlink" title="时间戳转时间"></a>时间戳转时间</h4><pre><code>mysql&gt; select from_unixtime(1577808000);
-+---------------------------+
-| from_unixtime(1577808000) |
-+---------------------------+
-| 2020-01-01 00:00:00       |
-+---------------------------+
-1 row in set (0.00 sec)</code></pre><h4 id="时间戳格式化"><a href="#时间戳格式化" class="headerlink" title="时间戳格式化"></a>时间戳格式化</h4><pre><code>mysql&gt; SELECT from_unixtime(1577808000, &apos;%Y年%m月%d日 %H:%i:%S&apos;);
-+----------------------------------------------------+
-| from_unixtime(1577808000, &apos;%Y年%m月%d日 %H:%i:%S&apos;) |
-+----------------------------------------------------+
-| 2020年01月01日 00:00:00                            |
-+----------------------------------------------------+
-1 row in set (0.00 sec)</code></pre><h4 id="时间格式化"><a href="#时间格式化" class="headerlink" title="时间格式化"></a>时间格式化</h4><pre><code>mysql&gt; select date_format(now(), &apos;%Y年%m月%d日&apos;);
-+------------------------------------+
-| date_format(now(), &apos;%Y年%m月%d日&apos;) |
-+------------------------------------+
-| 2020年03月04日                     |
-+------------------------------------+
-1 row in set (0.00 sec)
-
-mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d日 %H时%i分%S秒&apos;);
-+-----------------------------------------------------------------+
-| date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d日 %H时%i分%S秒&apos;) |
-+-----------------------------------------------------------------+
-| 2020年01月01日 12时00分00秒                                     |
-+-----------------------------------------------------------------+
-1 row in set (0.00 sec)</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -938,7 +651,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 247 个字)
+                    2 分钟 读完 (大约 248 个字)
                 </span>
                 
                 
@@ -959,108 +672,17 @@ public enum JDBCType implements SQLType {
     VARCHAR(Types.VARCHAR),
     TIMESTAMP(Types.TIMESTAMP),
     ......
-}</code></pre><p>枚举变量也是有类型的，也是有值的，正如整数变量是整数类型，也有值大小一样，上述枚举变量值的定义是通过 Types 来描述刻画的。</p>
-<pre><code>public class Types {
-    public final static int INTEGER         =   4;
-    public final static int DOUBLE          =   8;
-    public final static int VARCHAR         =  12;
-    public final static int TIMESTAMP       =  93;
-｝</code></pre><h3 id="MyBatis包含的JdbcType"><a href="#MyBatis包含的JdbcType" class="headerlink" title="MyBatis包含的JdbcType"></a>MyBatis包含的JdbcType</h3><pre><code>BIT         FLOAT      CHAR           TIMESTAMP       OTHER       UNDEFINED
-TINYINT     REAL       VARCHAR        BINARY          BLOB        NVARCHAR
-SMALLINT    DOUBLE     LONGVARCHAR    VARBINARY       CLOB        NCHAR
-INTEGER     NUMERIC    DATE           LONGVARBINARY   BOOLEAN     NCLOB
-BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
-<thead>
-<tr>
-<th align="left">JdbcType</th>
-<th align="center">JavaType</th>
-<th align="right">MySqlType</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">CHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">VARCHAR</td>
-<td align="center">String</td>
-<td align="right">CHAR</td>
-</tr>
-<tr>
-<td align="left">LONGVARCHAR</td>
-<td align="center">String</td>
-<td align="right">VARCHAR</td>
-</tr>
-<tr>
-<td align="left">NUMERIC</td>
-<td align="center">BigDecimal</td>
-<td align="right">NUMERIC</td>
-</tr>
-<tr>
-<td align="left">TINYINT</td>
-<td align="center">byte</td>
-<td align="right">TINYINT</td>
-</tr>
-<tr>
-<td align="left">SMALLINT</td>
-<td align="center">short</td>
-<td align="right">SMALLINT</td>
-</tr>
-<tr>
-<td align="left">INTEGER</td>
-<td align="center">int</td>
-<td align="right">INTEGER</td>
-</tr>
-<tr>
-<td align="left">BIGINT</td>
-<td align="center">long</td>
-<td align="right">BIGINT</td>
-</tr>
-<tr>
-<td align="left">REAL</td>
-<td align="center">float</td>
-<td align="right">REAL</td>
-</tr>
-<tr>
-<td align="left">FLOAT</td>
-<td align="center">double</td>
-<td align="right">FLOAT</td>
-</tr>
-<tr>
-<td align="left">DOUBLE</td>
-<td align="center">double</td>
-<td align="right">DOUBLE</td>
-</tr>
-<tr>
-<td align="left">DATE</td>
-<td align="center">java.sql.Date</td>
-<td align="right">DATE</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.sql.Timestamp</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">TIMESTAMP</td>
-<td align="center">java.util.Date</td>
-<td align="right">TIMESTAMP/DATETIME</td>
-</tr>
-<tr>
-<td align="left">CLOB</td>
-<td align="center">Clob</td>
-<td align="right">CLOB</td>
-</tr>
-<tr>
-<td align="left">BLOB</td>
-<td align="center">Blob</td>
-<td align="right">BLOB</td>
-</tr>
-</tbody></table>
-
+}</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/04/myBatis%E7%9A%84jdbcType%E5%92%8CjavaType%EF%BC%8CmySQL%E7%9A%84%E5%AF%B9%E5%BA%94%E7%B1%BB%E5%9E%8B/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -1137,7 +759,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -1286,7 +908,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -1299,7 +921,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -1457,7 +1079,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1506,7 +1128,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -1726,7 +1348,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1775,7 +1397,7 @@ BIGINT      DECIMAL    TIME           NULL            CURSOR</code></pre><table>
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

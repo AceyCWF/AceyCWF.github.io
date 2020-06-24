@@ -152,7 +152,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 163 个字)
+                    1 分钟 读完 (大约 164 个字)
                 </span>
                 
                 
@@ -165,17 +165,17 @@
             
         </h1>
         <div class="content">
-            <h3 id="idea重写toString模版"><a href="#idea重写toString模版" class="headerlink" title="idea重写toString模版"></a>idea重写toString模版</h3><p>1、alt+insert 呼出生成选择框</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/1.jpg" alt="选择框"></p>
-<p>2、点击setting 设置</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/2.jpg" alt="选择框"></p>
-<p>3、新增自定义模版</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/3.jpg" alt="选择框"></p>
-<p>4、选择生成toString所使用的模版</p>
-<p><img src="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/4.jpg" alt="选择框"></p>
-<h4 id="JSON字符串模版"><a href="#JSON字符串模版" class="headerlink" title="JSON字符串模版"></a>JSON字符串模版</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.<span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> java.lang.StringBuilder sb = <span class="keyword">new</span> java.lang.StringBuilder(<span class="string">"&#123;"</span>);</span><br><span class="line">#set ($i = 0)</span><br><span class="line">#foreach ($member in $members)#if ($i == 0)</span><br><span class="line">sb.append(<span class="string">"#####</span></span><br><span class="line"><span class="string">#else</span></span><br><span class="line">sb.append(",####</span><br><span class="line">#end#if ($member.string || $member.date)</span><br><span class="line">\<span class="string">"$member.name\":\""</span>)</span><br><span class="line">#else</span><br><span class="line">\<span class="string">"$member.name\":"</span>)</span><br><span class="line">#end#if ($member.primitiveArray || $member.objectArray)</span><br><span class="line">.append(java.util.Arrays.toString($member.name));</span><br><span class="line">#elseif ($member.string || $member.date)</span><br><span class="line">.append($member.accessor).append(<span class="string">'\"'</span>);</span><br><span class="line">#else</span><br><span class="line">.append($member.accessor);</span><br><span class="line">#end#set ($i = $i + 1)</span><br><span class="line">#end</span><br><span class="line">sb.append(<span class="string">'&#125;'</span>);</span><br><span class="line"><span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="idea重写toString模版"><a href="#idea重写toString模版" class="headerlink" title="idea重写toString模版"></a>idea重写toString模版</h3>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -233,7 +233,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -382,7 +382,7 @@
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -395,7 +395,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -553,7 +553,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -602,7 +602,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -822,7 +822,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -871,7 +871,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

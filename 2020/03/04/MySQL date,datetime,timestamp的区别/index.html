@@ -10,16 +10,16 @@
 <title>MySQL date,datetime,timestamp的区别 - AceyCWF</title>
 
 
-    <meta name="description" content="MySQL有三种日期类型 date datetime timestamp  定义date: 日期  如：2020-03-01 不带时分秒。 datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。 timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。 时间范围">
+    <meta name="description" content="MySQL有三种日期类型 date datetime timestamp  定义date: 日期  如：2020-03-01 不带时分秒。 datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。 timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL date,datetime,timestamp的区别">
 <meta property="og:url" content="http://cwfsv.cn/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="MySQL有三种日期类型 date datetime timestamp  定义date: 日期  如：2020-03-01 不带时分秒。 datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。 timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。 时间范围">
+<meta property="og:description" content="MySQL有三种日期类型 date datetime timestamp  定义date: 日期  如：2020-03-01 不带时分秒。 datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。 timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-03-04T09:20:38.000Z">
-<meta property="article:modified_time" content="2020-05-21T06:36:59.157Z">
+<meta property="article:modified_time" content="2020-06-24T06:42:08.217Z">
 <meta property="article:author" content="陈伟锋">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -114,6 +114,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -144,7 +148,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 281 个字)
+                    2 分钟 读完 (大约 282 个字)
                 </span>
                 
                 
@@ -165,6 +169,8 @@
 <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>date: 日期  如：2020-03-01 不带时分秒。</p>
 <p>datetime: 日期时间 如：2020-03-01 17:20:00 带时分秒。</p>
 <p>timestamp: 时间戳， 时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。</p>
+<a id="more"></a>
+
 <h3 id="时间范围"><a href="#时间范围" class="headerlink" title="时间范围"></a>时间范围</h3><p>date:  ‘1000-01-01’ to ‘9999-12-31’</p>
 <p>datetime:  ‘1000-01-01 00:00:00’ to ‘9999-12-31 23:59:59’</p>
 <p>timestamp:  ‘1970-01-01 00:00:01’ UTC to ‘2038-01-19 03:14:07’ UTC</p>
@@ -338,7 +344,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            13
+                            12
                         </p>
                     </a>
                 </div>
@@ -398,6 +404,58 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#MySQL有三种日期类型">
+        <span class="has-mr-6">1</span>
+        <span>MySQL有三种日期类型</span>
+        </a></li><li>
+        <a class="is-flex" href="#定义">
+        <span class="has-mr-6">2</span>
+        <span>定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#时间范围">
+        <span class="has-mr-6">3</span>
+        <span>时间范围</span>
+        </a></li><li>
+        <a class="is-flex" href="#常用方法">
+        <span class="has-mr-6">4</span>
+        <span>常用方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#查看当前时间戳">
+        <span class="has-mr-6">4.1</span>
+        <span>查看当前时间戳</span>
+        </a></li><li>
+        <a class="is-flex" href="#查看当前时间">
+        <span class="has-mr-6">4.2</span>
+        <span>查看当前时间</span>
+        </a></li><li>
+        <a class="is-flex" href="#时间转时间戳">
+        <span class="has-mr-6">4.3</span>
+        <span>时间转时间戳</span>
+        </a></li><li>
+        <a class="is-flex" href="#时间戳转时间">
+        <span class="has-mr-6">4.4</span>
+        <span>时间戳转时间</span>
+        </a></li><li>
+        <a class="is-flex" href="#时间戳格式化">
+        <span class="has-mr-6">4.5</span>
+        <span>时间戳格式化</span>
+        </a></li><li>
+        <a class="is-flex" href="#时间格式化">
+        <span class="has-mr-6">4.6</span>
+        <span>时间格式化</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -487,7 +545,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                 <span class="level-item">系统运维</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -500,7 +558,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -658,7 +716,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -707,7 +765,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -927,7 +985,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -976,7 +1034,7 @@ mysql&gt; select date_format(&apos;2020-01-01 12:00:00&apos;, &apos;%Y年%m月%d
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Linux/">
                         <span class="tag">Linux</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
