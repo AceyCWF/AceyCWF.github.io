@@ -7,20 +7,24 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: RabbitMQ - AceyCWF</title>
+<title>Docker部署SpringBoot程序包 - AceyCWF</title>
 
 
-    <meta name="description" content="专注于java开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AceyCWF">
-<meta property="og:url" content="http://cwfsv.cn/tags/RabbitMQ/index.html">
+    <meta name="description" content="Docker部署SpringBoot程序包1、准备好要部署的服务包执行 mvn clean package -DskipTests -U，将target目录下的jar包拷贝出来 2、编写Dockerfile文件123456FROM  java:8  VOLUME &#x2F;tmp    ADD dubbodemo-api-web-0.0.1-SNAPSHOT.jar app.jarRUN bas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker部署SpringBoot程序包">
+<meta property="og:url" content="http://cwfsv.cn/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="专注于java开发">
+<meta property="og:description" content="Docker部署SpringBoot程序包1、准备好要部署的服务包执行 mvn clean package -DskipTests -U，将target目录下的jar包拷贝出来 2、编写Dockerfile文件123456FROM  java:8  VOLUME &#x2F;tmp    ADD dubbodemo-api-web-0.0.1-SNAPSHOT.jar app.jarRUN bas">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
+<meta property="og:image" content="http://cwfsv.cn/BlogTitileImg/docker_1.jpg">
+<meta property="article:published_time" content="2020-06-30T01:14:34.000Z">
+<meta property="article:modified_time" content="2020-06-30T01:59:20.763Z">
 <meta property="article:author" content="陈伟锋">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
+<meta name="twitter:image" content="http://cwfsv.cn/BlogTitileImg/docker_1.jpg">
 
 
 
@@ -78,7 +82,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="AceyCWF" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="Docker部署SpringBoot程序包" height="28">
             
             </a>
         </div>
@@ -111,6 +115,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -124,82 +132,20 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">RabbitMQ</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
 <div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/BlogTitileImg/docker_1.jpg" alt="Docker部署SpringBoot程序包">
+        </span>
+    </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-25T12:34:09.000Z">2020-03-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 422 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/">Windows环境下安装RabbitMQ</a>
-            
-        </h1>
-        <div class="content">
-            <p>RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。</p>
-<h3 id="1、安装Erlang"><a href="#1、安装Erlang" class="headerlink" title="1、安装Erlang"></a>1、安装Erlang</h3><p>安装Erlang需要注意RabbitMQ所依赖的版本。</p>
-<p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
-<p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
-<p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-02-27T03:44:18.000Z">2020-02-27</time>
+                <time class="level-item has-text-grey" datetime="2020-06-30T01:14:34.000Z">2020-06-30</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/java/">java</a>
@@ -209,7 +155,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1814 个字)
+                    3 分钟 读完 (大约 510 个字)
                 </span>
                 
                 
@@ -218,21 +164,36 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/02/27/SpringBoot%E9%9B%86%E6%88%90RabbitMQ/">SpringBoot集成RabbitMQ</a>
+                Docker部署SpringBoot程序包
             
         </h1>
         <div class="content">
-            <h3 id="Springboot-集成-RabbitMQ"><a href="#Springboot-集成-RabbitMQ" class="headerlink" title="Springboot 集成 RabbitMQ"></a>Springboot 集成 RabbitMQ</h3><p>RabbitMQ 是一个用 Erlang 语言开发的 AMQP 开源实现。AMQP（Advanced Message Queue Protocol），高级消息队列协议，是异步消息处理领域的一个公开标准，主要由 Cisco、RedHat 等联合制定。而 RabbitMQ 就是 AMQP 的一个开源实现，由 RabbitMQ Technologies Ltd 公司开发并提供商业支持。<br>RabbitMQ 即一个消息队列，主要是用来实现应用程序的异步和解耦，同时也能起到消息缓冲，消息分发的作用。<br>RabbitMQ 主要应用于大型系统中不同的应用或者子系统之间的通信，通过分隔数据的发送和接收来解耦应用。</p>
+            <h1 id="Docker部署SpringBoot程序包"><a href="#Docker部署SpringBoot程序包" class="headerlink" title="Docker部署SpringBoot程序包"></a>Docker部署SpringBoot程序包</h1><h2 id="1、准备好要部署的服务包"><a href="#1、准备好要部署的服务包" class="headerlink" title="1、准备好要部署的服务包"></a>1、准备好要部署的服务包</h2><p>执行 <code>mvn clean package -DskipTests -U</code>，将target目录下的jar包拷贝出来</p>
+<h2 id="2、编写Dockerfile文件"><a href="#2、编写Dockerfile文件" class="headerlink" title="2、编写Dockerfile文件"></a>2、编写Dockerfile文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM  java:8  </span><br><span class="line">VOLUME &#x2F;tmp    </span><br><span class="line">ADD dubbodemo-api-web-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line">RUN bash -c &#39;touch &#x2F;app.jar&#39;</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom&quot;,&quot;-jar&quot;,&quot;&#x2F;app.jar&quot;]</span><br><span class="line">RUN &#x2F;bin&#x2F;cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime &amp;&amp; echo &#39;Asia&#x2F;Shanghai&#39; &gt;&#x2F;etc&#x2F;timezone</span><br></pre></td></tr></table></figure>
+<p>FROM：:项目依赖，需要一个 java 8 版本的 jdk<br>ADD：第一个参数为 JAR 包的名称， 第二个人参数自定义名称，打包后的名称<br>ENTRYPOINT：运行 JAR 包的指令， 如 java -jar app.jar 为 [“java”,”-jar”,”/app.jar”]<br>注意这里的 app.jar 和 ADD 的第二个参数对应</p>
+<a id="more"></a>
+
+<h2 id="3、构建Dockerfile"><a href="#3、构建Dockerfile" class="headerlink" title="3、构建Dockerfile"></a>3、构建Dockerfile</h2><p>1、将jar包及Dockerfile上传至同一目录</p>
+<p><img src="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/1.jpg" alt="目录结构"></p>
+<p>2、执行<code>docker build -t demoapi:v0.0.1 .</code>构建docker 镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@baseserver springbootDemoTest]# docker build -t demoapi:v0.0.1 .             </span><br><span class="line">Sending build context to Docker daemon  65.66MB</span><br><span class="line">Step 1&#x2F;6 : FROM  java:8</span><br><span class="line">8: Pulling from library&#x2F;java</span><br><span class="line">5040bd298390: Pull complete </span><br><span class="line">fce5728aad85: Pull complete </span><br><span class="line">76610ec20bf5: Pull complete </span><br><span class="line">60170fec2151: Pull complete </span><br><span class="line">e98f73de8f0d: Pull complete </span><br><span class="line">11f7af24ed9c: Pull complete </span><br><span class="line">49e2d6393f32: Pull complete </span><br><span class="line">bb9cdec9c7f3: Pull complete </span><br><span class="line">Digest: sha256:c1ff613e8ba25833d2e1940da0940c3824f03f802c449f3d1815a66b7f8c0e9d</span><br><span class="line">Status: Downloaded newer image for java:8</span><br><span class="line"> ---&gt; d23bdf5b1b1b</span><br><span class="line">Step 2&#x2F;6 : VOLUME &#x2F;tmp</span><br><span class="line"> ---&gt; Running in e2e27a328035</span><br><span class="line">Removing intermediate container e2e27a328035</span><br><span class="line"> ---&gt; 8156be7ed8e9</span><br><span class="line">Step 3&#x2F;6 : ADD dubbodemo-api-web-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line"> ---&gt; ec941d760399</span><br><span class="line">Step 4&#x2F;6 : RUN bash -c &#39;touch &#x2F;app.jar&#39;</span><br><span class="line"> ---&gt; Running in ad15976c44b4</span><br><span class="line">Removing intermediate container ad15976c44b4</span><br><span class="line"> ---&gt; c5a8ee93d057</span><br><span class="line">Step 5&#x2F;6 : ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom&quot;,&quot;-jar&quot;,&quot;&#x2F;app.jar&quot;]</span><br><span class="line"> ---&gt; Running in e39a95508d95</span><br><span class="line">Removing intermediate container e39a95508d95</span><br><span class="line"> ---&gt; 36c421cb2a14</span><br><span class="line">Step 6&#x2F;6 : RUN &#x2F;bin&#x2F;cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime &amp;&amp; echo &#39;Asia&#x2F;Shanghai&#39; &gt;&#x2F;etc&#x2F;timezone</span><br><span class="line"> ---&gt; Running in 38364c2b1a7a</span><br><span class="line">Removing intermediate container 38364c2b1a7a</span><br><span class="line"> ---&gt; ce01f8172bfb</span><br><span class="line">Successfully built ce01f8172bfb</span><br><span class="line">Successfully tagged demoapi:v0.0.1</span><br></pre></td></tr></table></figure>
+<p>看到Successfully说明build成功</p>
+<h2 id="4、运行dokcer-image"><a href="#4、运行dokcer-image" class="headerlink" title="4、运行dokcer image"></a>4、运行dokcer image</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@baseserver springbootDemoTest]# docker run -itd -p 18105:18105 --name demoapi demoapi:v0.0.1 </span><br><span class="line">561ac0acb78149c43304dbe6c279975e6a6019d3a5ccf85e03eb77f68d645bc6</span><br><span class="line"></span><br><span class="line">[root@baseserver springbootDemoTest]# docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS                    PORTS                                                                                        NAMES</span><br><span class="line">561ac0acb781        demoapi:v0.0.1              &quot;java -Djava.securit…&quot;   48 seconds ago      Up 47 seconds             0.0.0.0:18105-&gt;18105&#x2F;tcp                                                                     demoapi</span><br></pre></td></tr></table></figure>
+
+<p>curl 访问测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@baseserver springbootDemoTest]# curl 127.0.0.1:18105&#x2F;test</span><br><span class="line">&#123;&quot;errorCode&quot;:200,&quot;errorMessage&quot;:&quot;requestSuccess&quot;,&quot;data&quot;:null&#125;[root@baseserver springbootDemoTest]#</span><br></pre></td></tr></table></figure>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/02/27/SpringBoot%E9%9B%86%E6%88%90RabbitMQ/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="has-link-grey -link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -240,9 +201,50 @@
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/UOsMcBuCPlXNJ9t.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/PQcjSnCY1Zsov8B.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">设计模式-3.单例模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -350,6 +352,38 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#Docker部署SpringBoot程序包">
+        <span class="has-mr-6">1</span>
+        <span>Docker部署SpringBoot程序包</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1、准备好要部署的服务包">
+        <span class="has-mr-6">1.1</span>
+        <span>1、准备好要部署的服务包</span>
+        </a></li><li>
+        <a class="is-flex" href="#2、编写Dockerfile文件">
+        <span class="has-mr-6">1.2</span>
+        <span>2、编写Dockerfile文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#3、构建Dockerfile">
+        <span class="has-mr-6">1.3</span>
+        <span>3、构建Dockerfile</span>
+        </a></li><li>
+        <a class="is-flex" href="#4、运行dokcer-image">
+        <span class="has-mr-6">1.4</span>
+        <span>4、运行dokcer image</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -998,7 +1032,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="AceyCWF" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="Docker部署SpringBoot程序包" height="28">
                     
                 </a>
                 <p class="is-size-7">
