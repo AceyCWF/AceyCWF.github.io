@@ -7,17 +7,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: Docker - AceyCWF</title>
+<title>多线程与高并发学习一 - AceyCWF</title>
 
 
-    <meta name="description" content="专注于java开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AceyCWF">
-<meta property="og:url" content="http://cwfsv.cn/tags/Docker/index.html">
+    <meta name="description" content="多线程与高并发学习基本概念进程一个程序运行起来之后，叫做进程。对于程序来讲，是一个动态的概念。例如qq.exe,jvm。 线程作为一个进程，他最小的执行单元，叫做线程。粗略的讲就是一个程序里不同的执行路径。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程与高并发学习一">
+<meta property="og:url" content="http://cwfsv.cn/2020/07/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%80/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="专注于java开发">
+<meta property="og:description" content="多线程与高并发学习基本概念进程一个程序运行起来之后，叫做进程。对于程序来讲，是一个动态的概念。例如qq.exe,jvm。 线程作为一个进程，他最小的执行单元，叫做线程。粗略的讲就是一个程序里不同的执行路径。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
+<meta property="article:published_time" content="2020-07-06T03:56:54.217Z">
+<meta property="article:modified_time" content="2020-07-07T09:24:19.801Z">
 <meta property="article:author" content="陈伟锋">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
@@ -78,7 +80,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="AceyCWF" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="多线程与高并发学习一" height="28">
             
             </a>
         </div>
@@ -111,6 +113,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -124,31 +130,14 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Docker</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
 <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/" class="image is-7by1">
-            <img class="thumbnail" src="/BlogTitileImg/docker_1.jpg" alt="Docker部署SpringBoot程序包">
-        </a>
-    </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-30T01:14:34.000Z">2020-06-30</time>
+                <time class="level-item has-text-grey" datetime="2020-07-06T03:56:54.217Z">2020-07-06</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/java/">java</a>
@@ -158,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 510 个字)
+                    7 分钟 读完 (大约 987 个字)
                 </span>
                 
                 
@@ -167,23 +156,38 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/">Docker部署SpringBoot程序包</a>
+                多线程与高并发学习一
             
         </h1>
         <div class="content">
-            <h1 id="Docker部署SpringBoot程序包"><a href="#Docker部署SpringBoot程序包" class="headerlink" title="Docker部署SpringBoot程序包"></a>Docker部署SpringBoot程序包</h1><h2 id="1、准备好要部署的服务包"><a href="#1、准备好要部署的服务包" class="headerlink" title="1、准备好要部署的服务包"></a>1、准备好要部署的服务包</h2><p>执行 <code>mvn clean package -DskipTests -U</code>，将target目录下的jar包拷贝出来</p>
-<h2 id="2、编写Dockerfile文件"><a href="#2、编写Dockerfile文件" class="headerlink" title="2、编写Dockerfile文件"></a>2、编写Dockerfile文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM  java:8  </span><br><span class="line">VOLUME &#x2F;tmp    </span><br><span class="line">ADD dubbodemo-api-web-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line">RUN bash -c &#39;touch &#x2F;app.jar&#39;</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom&quot;,&quot;-jar&quot;,&quot;&#x2F;app.jar&quot;]</span><br><span class="line">RUN &#x2F;bin&#x2F;cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime &amp;&amp; echo &#39;Asia&#x2F;Shanghai&#39; &gt;&#x2F;etc&#x2F;timezone</span><br></pre></td></tr></table></figure>
-<p>FROM：:项目依赖，需要一个 java 8 版本的 jdk<br>ADD：第一个参数为 JAR 包的名称， 第二个人参数自定义名称，打包后的名称<br>ENTRYPOINT：运行 JAR 包的指令， 如 java -jar app.jar 为 [“java”,”-jar”,”/app.jar”]<br>注意这里的 app.jar 和 ADD 的第二个参数对应</p>
+            <h1 id="多线程与高并发学习"><a href="#多线程与高并发学习" class="headerlink" title="多线程与高并发学习"></a>多线程与高并发学习</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>一个程序运行起来之后，叫做进程。对于程序来讲，是一个动态的概念。例如qq.exe,jvm。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>作为一个进程，他最小的执行单元，叫做线程。粗略的讲就是一个程序里不同的执行路径。</p>
+<a id="more"></a>
+
+<p>在java中创建线程的两种方式</p>
+<p>一、class 集成Thread方法，并重写run方法。</p>
+<p>二、定义一个类<br>实现Runnable接口，并重写run方法。</p>
+<p>三、使用Lambda表达式 new Thread(()-&gt;{})</p>
+<p>注意，启动调用方法为Thread.start();</p>
+<h3 id="线程最基本方法"><a href="#线程最基本方法" class="headerlink" title="线程最基本方法"></a>线程最基本方法</h3><p>1、Thread.sleep<br>当前线程暂停一段时间，让给别的线程执行。 </p>
+<p>2、Thread.yield<br>让线程从执行状态离开，进入等待队列，也就是就绪状态。</p>
+<p>3、Thread.join</p>
+<p> 将其他线程加入到当前线程中。join常用与等待另外一个线程的结束。</p>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p>synchronized(Object)</p>
+<p>实际上锁定的是Object对象，不是代码，谁持有Object对象的锁，谁就可以运行。</p>
+<p>Object不能使用String常量，Integer，Long 会出现一些不可控的异常。</p>
+<p>synchronized方法与非锁定方法可以同时执行</p>
+<h4 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h4><p>synchronized是可重入锁，每一个锁关联一个线程持有者和计数器，当计数器为 0 时表示该锁没有被任何线程持有，那么任何线程都可能获得该锁而调用相应的方法。当某一线程请求成功后，JVM会记下锁的持有线程，并且将计数器置为 1。此时其它线程请求该锁，则必须等待。而该持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器会递增；当线程退出同步代码块时，计数器会递减，如果计数器为 0，则释放该锁。</p>
+<h4 id="锁升级"><a href="#锁升级" class="headerlink" title="锁升级"></a>锁升级</h4><p>无锁 &gt; 偏向锁 &gt; 自旋锁 &gt; 重量级锁</p>
+<h5 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h5><p>在对象的markword上记录下当前的线程指针，同一个线程枷锁时候，不需要争用，只需要判断线程指针是否为同一个，所以偏向锁偏向枷锁的第一个线程。</p>
+<h5 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h5><p>当有线程争用同样资源时，锁升级为轻量锁。没个线程都有自己的LockRecord在自己的线程栈上。用cas去争用markword的LockRecord指针。指针指向哪个线程的LockRecord，哪个线程就拥有锁。当锁自选超过10次时，或者自旋线程数超过CPU核数的一半， 1.6之后，加入自适应自旋 Adapative Self Spinning ， JVM自己控制，锁升级为重量级锁。如果太多线程自旋，会消耗大量CPU性能，升级为重量级锁进入等待队列反而节省cpu资源。</p>
+<h5 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h5><p>向操作系统申请资源，线程挂起，进入等待队列，等待操作系统的调度。</p>
+<h4 id="synchronized与CAS该用哪个？"><a href="#synchronized与CAS该用哪个？" class="headerlink" title="synchronized与CAS该用哪个？"></a>synchronized与CAS该用哪个？</h4><p>在高争用 高耗时的环境下synchronized效率更高<br>在低争用 低耗时的环境下CAS效率更高<br>synchronized到重量级之后是等待队列（不消耗CPU）<br>CAS（等待期间消耗CPU）</p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><h4 id="volatile作用："><a href="#volatile作用：" class="headerlink" title="volatile作用："></a>volatile作用：</h4><p>保证线程之间的可见性，防止指令重排。</p>
+<h5 id="如何保证线程之间的可见性"><a href="#如何保证线程之间的可见性" class="headerlink" title="如何保证线程之间的可见性"></a>如何保证线程之间的可见性</h5><p>volatile类型的变量每次值被修改了就立即同步回主内存，每次使用时就需要从主内存重新读取值。而普通变量没有要求这一点，所以普通变量修改值是不会被其他线程立即可见的。</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -191,71 +195,50 @@
 
 
 
-
-
-
-
-
-    
 <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/" class="image is-7by1">
-            <img class="thumbnail" src="/BlogTitileImg/docker_1.jpg" alt="Docker容器使用">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-08T08:34:50.000Z">2020-06-08</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 859 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-                <a class="has-link-black-ter" href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/">Docker容器使用</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="Docker客户端"><a href="#Docker客户端" class="headerlink" title="Docker客户端"></a>Docker客户端</h2><h3 id="容器使用"><a href="#容器使用" class="headerlink" title="容器使用"></a>容器使用</h3><h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>获取镜像，如果我们本地没有镜像，先pull拉取一个Ubuntu镜像</p>
-<p><code>docker pull ubuntu</code></p>
-<h4 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h4><p>使用ubuntu镜像启动容器 </p>
-<p><code>$ docker run -it ubuntu /bin/bash</code></p>
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/UOsMcBuCPlXNJ9t.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/PQcjSnCY1Zsov8B.jpg" alt="微信"></div>
+</a>
+
+                
         </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/08/Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/">
+                <span class="level-item">Docker部署SpringBoot程序包</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -363,6 +346,46 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#多线程与高并发学习">
+        <span class="has-mr-6">1</span>
+        <span>多线程与高并发学习</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#基本概念">
+        <span class="has-mr-6">1.1</span>
+        <span>基本概念</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#进程">
+        <span class="has-mr-6">1.1.1</span>
+        <span>进程</span>
+        </a></li><li>
+        <a class="is-flex" href="#线程">
+        <span class="has-mr-6">1.1.2</span>
+        <span>线程</span>
+        </a></li><li>
+        <a class="is-flex" href="#线程最基本方法">
+        <span class="has-mr-6">1.1.3</span>
+        <span>线程最基本方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#synchronized">
+        <span class="has-mr-6">1.1.4</span>
+        <span>synchronized</span>
+        </a></li><li>
+        <a class="is-flex" href="#volatile">
+        <span class="has-mr-6">1.1.5</span>
+        <span>volatile</span>
+        </a></li></ul></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1033,7 +1056,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="AceyCWF" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="多线程与高并发学习一" height="28">
                     
                 </a>
                 <p class="is-size-7">
