@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-07-06T03:56:54.217Z">
-<meta property="article:modified_time" content="2020-07-07T09:24:19.801Z">
+<meta property="article:modified_time" content="2020-07-07T09:26:57.712Z">
 <meta property="article:author" content="陈伟锋">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
@@ -147,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 987 个字)
+                    7 分钟 读完 (大约 1041 个字)
                 </span>
                 
                 
@@ -185,6 +185,9 @@
 <h4 id="synchronized与CAS该用哪个？"><a href="#synchronized与CAS该用哪个？" class="headerlink" title="synchronized与CAS该用哪个？"></a>synchronized与CAS该用哪个？</h4><p>在高争用 高耗时的环境下synchronized效率更高<br>在低争用 低耗时的环境下CAS效率更高<br>synchronized到重量级之后是等待队列（不消耗CPU）<br>CAS（等待期间消耗CPU）</p>
 <h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><h4 id="volatile作用："><a href="#volatile作用：" class="headerlink" title="volatile作用："></a>volatile作用：</h4><p>保证线程之间的可见性，防止指令重排。</p>
 <h5 id="如何保证线程之间的可见性"><a href="#如何保证线程之间的可见性" class="headerlink" title="如何保证线程之间的可见性"></a>如何保证线程之间的可见性</h5><p>volatile类型的变量每次值被修改了就立即同步回主内存，每次使用时就需要从主内存重新读取值。而普通变量没有要求这一点，所以普通变量修改值是不会被其他线程立即可见的。</p>
+<p>简单案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class L &#123;</span><br><span class="line"></span><br><span class="line">	public volatile Boolean flag &#x3D; true;</span><br><span class="line"></span><br><span class="line">	public void m()&#123;</span><br><span class="line">		System.out.println(&quot;m start&quot;);</span><br><span class="line">		while (flag)&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;m end&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		L l &#x3D; new L();</span><br><span class="line">		new Thread(l::m).start();</span><br><span class="line">		try &#123;</span><br><span class="line">			Thread.sleep(1000);</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		l.flag &#x3D; false;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
