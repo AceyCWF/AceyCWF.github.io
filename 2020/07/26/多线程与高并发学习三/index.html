@@ -7,21 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Windows环境下安装RabbitMQ - AceyCWF</title>
+<title>多线程与高并发学习三 - AceyCWF</title>
 
 
-    <meta name="description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
+    <meta name="description" content="多线程与高并发学习笔记CountDownLatch倒数计数门栓，相比Thread.join 更灵活。 1234567891011121314151617181920public static void main(String[] args) &amp;#123;		CountDownLatch latch &#x3D; new CountDownLatch(50);		for (int i &#x3D;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows环境下安装RabbitMQ">
-<meta property="og:url" content="http://cwfsv.cn/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/index.html">
+<meta property="og:title" content="多线程与高并发学习三">
+<meta property="og:url" content="http://cwfsv.cn/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
+<meta property="og:description" content="多线程与高并发学习笔记CountDownLatch倒数计数门栓，相比Thread.join 更灵活。 1234567891011121314151617181920public static void main(String[] args) &amp;#123;		CountDownLatch latch &#x3D; new CountDownLatch(50);		for (int i &#x3D;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
-<meta property="article:published_time" content="2020-03-25T12:34:09.000Z">
-<meta property="article:modified_time" content="2020-06-24T06:41:54.417Z">
+<meta property="article:published_time" content="2020-07-26T01:45:35.000Z">
+<meta property="article:modified_time" content="2020-07-26T01:49:44.162Z">
 <meta property="article:author" content="陈伟锋">
-<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
 
@@ -81,7 +82,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="Windows环境下安装RabbitMQ" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="多线程与高并发学习三" height="28">
             
             </a>
         </div>
@@ -138,17 +139,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-25T12:34:09.000Z">2020-03-25</time>
+                <time class="level-item has-text-grey" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 422 个字)
+                    3 分钟 读完 (大约 427 个字)
                 </span>
                 
                 
@@ -157,40 +158,30 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Windows环境下安装RabbitMQ
+                多线程与高并发学习三
             
         </h1>
         <div class="content">
-            <p>RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。</p>
-<h3 id="1、安装Erlang"><a href="#1、安装Erlang" class="headerlink" title="1、安装Erlang"></a>1、安装Erlang</h3><p>安装Erlang需要注意RabbitMQ所依赖的版本。</p>
-<p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
-<p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
-<p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
- <a id="more"></a>
+            <h1 id="多线程与高并发学习笔记"><a href="#多线程与高并发学习笔记" class="headerlink" title="多线程与高并发学习笔记"></a>多线程与高并发学习笔记</h1><h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>倒数计数门栓，相比Thread.join 更灵活。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		CountDownLatch latch &#x3D; new CountDownLatch(50);</span><br><span class="line">		for (int i &#x3D; 0; i &lt; 50; i++) &#123;</span><br><span class="line">			new Thread(()-&gt;&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName());</span><br><span class="line">				try &#123;</span><br><span class="line">					TimeUnit.SECONDS.sleep(1);</span><br><span class="line">				&#125; catch (InterruptedException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				latch.countDown();</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		try &#123;</span><br><span class="line">			latch.await();</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(Thread.currentThread().getName());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>new CountDownLatch(50) 设置门栓的数量为50，latch.countDown()将门栓数量-1，countDown操作为原子操作，不会存在线程安全的问题。latch.await()等待门栓数量减为0后往下运行。</p>
+<h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>线程的计数器，CyclicBarrier构造器有两个参数，第一个参数为凑够多少的线程就执行的数值，第二个为每次执行后的run事件。</p>
+<p>cyclicBarrier.await()，等待释放。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		CyclicBarrier cyclicBarrier &#x3D; new CyclicBarrier(10,()-&gt; System.out.println(&quot;cyclicBarrier释放执行&quot;));</span><br><span class="line">		for (int i &#x3D; 0; i &lt; 100; i++) &#123;</span><br><span class="line">			new Thread(()-&gt;&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName());</span><br><span class="line">				try &#123;</span><br><span class="line">					cyclicBarrier.await();</span><br><span class="line">				&#125; catch (InterruptedException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125; catch (BrokenBarrierException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Thread-0</span><br><span class="line">Thread-4</span><br><span class="line">Thread-3</span><br><span class="line">Thread-2</span><br><span class="line">Thread-1</span><br><span class="line">Thread-7</span><br><span class="line">Thread-6</span><br><span class="line">Thread-5</span><br><span class="line">Thread-10</span><br><span class="line">Thread-9</span><br><span class="line">Thread-8</span><br><span class="line">Thread-13</span><br><span class="line">cyclicBarrier释放执行</span><br><span class="line">Thread-12</span><br><span class="line">Thread-11</span><br><span class="line">Thread-14</span><br><span class="line">Thread-15</span><br><span class="line">Thread-16</span><br><span class="line">Thread-17</span><br><span class="line">Thread-18</span><br><span class="line">Thread-19</span><br><span class="line">cyclicBarrier释放执行</span><br><span class="line">Thread-20</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<p>安装完成后配置环境变量：</p>
-<p>1、变量名： ERLANG_HOME 变量值： Erlang安装目录</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/1.jpg" alt="新建系统变量"></p>
-<p>2、编辑path变量 在结尾追加%ERLANG_HOME%\bin</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/2.jpg" alt="编辑path变量"></p>
-<p>命令行测试：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ccwf&gt;erl</span><br><span class="line">Eshell V10.<span class="number">7</span>  (abort with ^G)</span><br><span class="line"><span class="number">1</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、安装RabbitMQ"><a href="#2、安装RabbitMQ" class="headerlink" title="2、安装RabbitMQ"></a>2、安装RabbitMQ</h3><p><a href="https://www.rabbitmq.com/install-windows.html">RabbitMQ下载地址</a> ，下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe">RabbitMQV3.8.3.exe</a> 。<br>安装mq的目录不允许有空格及中文。</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/3.jpg" alt="运行服务"></p>
-<h3 id="3、安装RabbitMQ-Pluglins"><a href="#3、安装RabbitMQ-Pluglins" class="headerlink" title="3、安装RabbitMQ-Pluglins"></a>3、安装RabbitMQ-Pluglins</h3><p>使用命令行，cd进入安装目录下的sbin目录，执行命令：rabbitmq-plugins enable rabbitmq_management</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">D:\DevelopSoft\RabbitMQServer\rabbitmq_server<span class="literal">-3</span>.<span class="number">8.3</span>\sbin&gt;rabbitmq<span class="literal">-plugins</span> enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">Enabling plugins on node rabbit@C<span class="literal">-W</span><span class="operator">-F</span>:</span><br><span class="line">rabbitmq_management</span><br><span class="line">The following plugins have been configured:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line">Applying plugin configuration to rabbit@C<span class="literal">-W</span><span class="operator">-F</span>...</span><br><span class="line">The following plugins have been enabled:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line"></span><br><span class="line">started <span class="number">3</span> plugins.</span><br></pre></td></tr></table></figure>
-
-<p>登录管理后台：访问<a href="http://127.0.0.1:15672">http://127.0.0.1:15672</a></p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/4.jpg" alt="默认帐号密码"></p>
-
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p>信号量，指定可以同时有多少个线程运行，用于限流。默认为非公平。</p>
+<p>semaphore.acquire()：如果acquire未获取到运行许可，则会阻塞。运行完成后在finally释放。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Semaphore semaphore &#x3D; new Semaphore(2);</span><br><span class="line">    new Thread(() -&gt; &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            semaphore.acquire();</span><br><span class="line">            System.out.println(&quot;t1 run&quot;);</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">            System.out.println(&quot;t1 run&quot;);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            semaphore.release();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">    new Thread(() -&gt; &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            semaphore.acquire();</span><br><span class="line">            System.out.println(&quot;t2 run&quot;);</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">            System.out.println(&quot;t2 run&quot;);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            semaphore.release();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">    new Thread(() -&gt; &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            semaphore.acquire();</span><br><span class="line">            System.out.println(&quot;t3 run&quot;);</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">            System.out.println(&quot;t3 run&quot;);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            semaphore.release();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
         <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a>
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>, <a class="has-link-grey -link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a>
                 </div>
             </div>
         </div>
@@ -237,16 +228,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">idea重写toString模版</span>
+                <span class="level-item">使用redisson实现分布式锁</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/">
-                <span class="level-item">Dubbo Can not lock the registry cache file 错误解决</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/">
+                <span class="level-item">多线程与高并发学习二</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -368,18 +359,22 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#1、安装Erlang">
+        <a class="is-flex" href="#多线程与高并发学习笔记">
         <span class="has-mr-6">1</span>
-        <span>1、安装Erlang</span>
+        <span>多线程与高并发学习笔记</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#CountDownLatch">
+        <span class="has-mr-6">1.1</span>
+        <span>CountDownLatch</span>
         </a></li><li>
-        <a class="is-flex" href="#2、安装RabbitMQ">
-        <span class="has-mr-6">2</span>
-        <span>2、安装RabbitMQ</span>
+        <a class="is-flex" href="#CyclicBarrier">
+        <span class="has-mr-6">1.2</span>
+        <span>CyclicBarrier</span>
         </a></li><li>
-        <a class="is-flex" href="#3、安装RabbitMQ-Pluglins">
-        <span class="has-mr-6">3</span>
-        <span>3、安装RabbitMQ-Pluglins</span>
-        </a></li></ul>
+        <a class="is-flex" href="#Semaphore">
+        <span class="has-mr-6">1.3</span>
+        <span>Semaphore</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>
@@ -1104,7 +1099,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="Windows环境下安装RabbitMQ" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="多线程与高并发学习三" height="28">
                     
                 </a>
                 <p class="is-size-7">

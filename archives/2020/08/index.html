@@ -7,21 +7,18 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Windows环境下安装RabbitMQ - AceyCWF</title>
+<title>归档: 2020/8 - AceyCWF</title>
 
 
-    <meta name="description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Windows环境下安装RabbitMQ">
-<meta property="og:url" content="http://cwfsv.cn/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/index.html">
+    <meta name="description" content="专注于java开发">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AceyCWF">
+<meta property="og:url" content="http://cwfsv.cn/archives/2020/08/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
+<meta property="og:description" content="专注于java开发">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
-<meta property="article:published_time" content="2020-03-25T12:34:09.000Z">
-<meta property="article:modified_time" content="2020-06-24T06:41:54.417Z">
 <meta property="article:author" content="陈伟锋">
-<meta property="article:tag" content="RabbitMQ">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
 
@@ -81,7 +78,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="Windows环境下安装RabbitMQ" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="AceyCWF" height="28">
             
             </a>
         </div>
@@ -114,10 +111,6 @@
                     
                 
                 
-                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
-                    <i class="fas fa-list-ul"></i>
-                </a>
-                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -132,125 +125,34 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-25T12:34:09.000Z">2020-03-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 422 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                Windows环境下安装RabbitMQ
-            
-        </h1>
-        <div class="content">
-            <p>RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。</p>
-<h3 id="1、安装Erlang"><a href="#1、安装Erlang" class="headerlink" title="1、安装Erlang"></a>1、安装Erlang</h3><p>安装Erlang需要注意RabbitMQ所依赖的版本。</p>
-<p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
-<p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
-<p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
- <a id="more"></a>
 
-<p>安装完成后配置环境变量：</p>
-<p>1、变量名： ERLANG_HOME 变量值： Erlang安装目录</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/1.jpg" alt="新建系统变量"></p>
-<p>2、编辑path变量 在结尾追加%ERLANG_HOME%\bin</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/2.jpg" alt="编辑path变量"></p>
-<p>命令行测试：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ccwf&gt;erl</span><br><span class="line">Eshell V10.<span class="number">7</span>  (abort with ^G)</span><br><span class="line"><span class="number">1</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、安装RabbitMQ"><a href="#2、安装RabbitMQ" class="headerlink" title="2、安装RabbitMQ"></a>2、安装RabbitMQ</h3><p><a href="https://www.rabbitmq.com/install-windows.html">RabbitMQ下载地址</a> ，下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe">RabbitMQV3.8.3.exe</a> 。<br>安装mq的目录不允许有空格及中文。</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/3.jpg" alt="运行服务"></p>
-<h3 id="3、安装RabbitMQ-Pluglins"><a href="#3、安装RabbitMQ-Pluglins" class="headerlink" title="3、安装RabbitMQ-Pluglins"></a>3、安装RabbitMQ-Pluglins</h3><p>使用命令行，cd进入安装目录下的sbin目录，执行命令：rabbitmq-plugins enable rabbitmq_management</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">D:\DevelopSoft\RabbitMQServer\rabbitmq_server<span class="literal">-3</span>.<span class="number">8.3</span>\sbin&gt;rabbitmq<span class="literal">-plugins</span> enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">Enabling plugins on node rabbit@C<span class="literal">-W</span><span class="operator">-F</span>:</span><br><span class="line">rabbitmq_management</span><br><span class="line">The following plugins have been configured:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line">Applying plugin configuration to rabbit@C<span class="literal">-W</span><span class="operator">-F</span>...</span><br><span class="line">The following plugins have been enabled:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line"></span><br><span class="line">started <span class="number">3</span> plugins.</span><br></pre></td></tr></table></figure>
-
-<p>登录管理后台：访问<a href="http://127.0.0.1:15672">http://127.0.0.1:15672</a></p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/4.jpg" alt="默认帐号密码"></p>
-
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-<div class="card">
+<div class="card widget">
     <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
+        <h3 class="tag is-link">
+        八月 2020
+        </h3>
+        <div class="timeline">
+        
+            <article class="media">
                 
-<a class="button is-info donate">
-    <span class="icon is-small">
-        <i class="fab fa-alipay"></i>
-    </span>
-    <span>支付宝</span>
-    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/UOsMcBuCPlXNJ9t.png" alt="支付宝"></div>
-</a>
-
-                
-                
-<a class="button is-success donate">
-    <span class="icon is-small">
-        <i class="fab fa-weixin"></i>
-    </span>
-    <span>微信</span>
-    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/PQcjSnCY1Zsov8B.jpg" alt="微信"></div>
-</a>
-
-                
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time>
+                        <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
         </div>
-    </div>
-</div>
-
-
-
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">idea重写toString模版</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/">
-                <span class="level-item">Dubbo Can not lock the registry cache file 错误解决</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
     </div>
 </div>
 
@@ -360,30 +262,6 @@
 </div>
     
         
-
-    <div class="card widget" id="toc">
-        <div class="card-content">
-            <div class="menu">
-                <h3 class="menu-label">
-                    目录
-                </h3>
-                <ul class="menu-list"><li>
-        <a class="is-flex" href="#1、安装Erlang">
-        <span class="has-mr-6">1</span>
-        <span>1、安装Erlang</span>
-        </a></li><li>
-        <a class="is-flex" href="#2、安装RabbitMQ">
-        <span class="has-mr-6">2</span>
-        <span>2、安装RabbitMQ</span>
-        </a></li><li>
-        <a class="is-flex" href="#3、安装RabbitMQ-Pluglins">
-        <span class="has-mr-6">3</span>
-        <span>3、安装RabbitMQ-Pluglins</span>
-        </a></li></ul>
-            </div>
-        </div>
-    </div>
-
     
         <div class="card widget">
     <div class="card-content">
@@ -1104,7 +982,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="Windows环境下安装RabbitMQ" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="AceyCWF" height="28">
                     
                 </a>
                 <p class="is-size-7">

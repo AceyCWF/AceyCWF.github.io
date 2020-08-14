@@ -132,6 +132,121 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-25T12:34:09.000Z">2020-03-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 422 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/">Windows环境下安装RabbitMQ</a>
+            
+        </h1>
+        <div class="content">
+            <p>RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。</p>
+<h3 id="1、安装Erlang"><a href="#1、安装Erlang" class="headerlink" title="1、安装Erlang"></a>1、安装Erlang</h3><p>安装Erlang需要注意RabbitMQ所依赖的版本。</p>
+<p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
+<p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
+<p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-23T07:52:53.000Z">2020-03-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 682 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/">Dubbo Can not lock the registry cache file 错误解决</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="错误引发原因"><a href="#错误引发原因" class="headerlink" title="错误引发原因"></a>错误引发原因</h2><p>有多个线程在争夺一个文件的文件锁所引发的异常，而这个文件是dubbo的注册缓冲文件。</p>
+<p>Dubbo在保存服务列表时失败，Can not lock the registry cache file /root/.dubbo/dubbo-registry-127.0.0.1.cache，拿不到文件锁，无法保存服务列表。</p>
+<p>Dubbo通过注册中心发现服务，发现的服务Dubbo同时也会保存到本地缓存一份。</p>
+<p>缓存的好处有很多，比如不需要每次使用的时候都通过注册中心获取，注册中心不可用了，不影响消费端的调用，因为本地缓存了一份服务提供者列表。</p>
+<p>Dubbo本地缓存默认采用的文件，会根据注册中心自动在当前用户目录下生成一个缓存文件，类似/root/.dubbo/dubbo-registry-<em>.</em>.<em>.</em>.cache。</p>
+<p>星号表示注册中心的IP地址，当同一台机器上同时启动多个进程，就会出现多个进程争夺此文件的写入权限</p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-03-06T12:14:10.000Z">2020-03-06</time>
                 
                 <div class="level-item">
@@ -372,7 +487,7 @@ public enum JDBCType implements SQLType {
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1825 个字)
+                    2 分钟 读完 (大约 281 个字)
                 </span>
                 
                 
@@ -381,18 +496,19 @@ public enum JDBCType implements SQLType {
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/02/23/Linux%E4%B8%8B%E7%9A%84Nginx%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">Linux Nginx安装及配置</a>
+                <a class="has-link-black-ter" href="/2020/02/23/Linux-JDK%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Linux 环境jdk配置</a>
             
         </h1>
         <div class="content">
-            <h3 id="1、Nginx简介"><a href="#1、Nginx简介" class="headerlink" title="1、Nginx简介"></a>1、Nginx简介</h3><p>Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师Igor Sysoev所开发，官方测试nginx能够支支撑5万并发链接，并且cpu、内存等资源消耗却非常低，运行非常稳定。</p>
+            <h3 id="1、查看Linux有无自带的jdk（openjdk）"><a href="#1、查看Linux有无自带的jdk（openjdk）" class="headerlink" title="1、查看Linux有无自带的jdk（openjdk）"></a>1、查看Linux有无自带的jdk（openjdk）</h3><p>执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@server1 ~]# rpm -qa | grep java</span><br><span class="line">javapackages-tools-3.4.1-11.el7.noarch</span><br><span class="line">tzdata-java-2019c-1.el7.noarch</span><br><span class="line">java-1.8.0-openjdk-devel-1.8.0.242.b08-0.el7_7.x86_64</span><br><span class="line">java-1.8.0-openjdk-headless-1.8.0.242.b08-0.el7_7.x86_64</span><br><span class="line">python-javapackages-3.4.1-11.el7.noarch</span><br><span class="line">java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64</span><br></pre></td></tr></table></figure>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/02/23/Linux%E4%B8%8B%E7%9A%84Nginx%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/02/23/Linux-JDK%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -425,7 +541,7 @@ public enum JDBCType implements SQLType {
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 281 个字)
+                    12 分钟 读完 (大约 1825 个字)
                 </span>
                 
                 
@@ -434,19 +550,18 @@ public enum JDBCType implements SQLType {
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/02/23/Linux-JDK%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Linux 环境jdk配置</a>
+                <a class="has-link-black-ter" href="/2020/02/23/Linux%E4%B8%8B%E7%9A%84Nginx%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">Linux Nginx安装及配置</a>
             
         </h1>
         <div class="content">
-            <h3 id="1、查看Linux有无自带的jdk（openjdk）"><a href="#1、查看Linux有无自带的jdk（openjdk）" class="headerlink" title="1、查看Linux有无自带的jdk（openjdk）"></a>1、查看Linux有无自带的jdk（openjdk）</h3><p>执行命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@server1 ~]# rpm -qa | grep java</span><br><span class="line">javapackages-tools-3.4.1-11.el7.noarch</span><br><span class="line">tzdata-java-2019c-1.el7.noarch</span><br><span class="line">java-1.8.0-openjdk-devel-1.8.0.242.b08-0.el7_7.x86_64</span><br><span class="line">java-1.8.0-openjdk-headless-1.8.0.242.b08-0.el7_7.x86_64</span><br><span class="line">python-javapackages-3.4.1-11.el7.noarch</span><br><span class="line">java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64</span><br></pre></td></tr></table></figure>
+            <h3 id="1、Nginx简介"><a href="#1、Nginx简介" class="headerlink" title="1、Nginx简介"></a>1、Nginx简介</h3><p>Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师Igor Sysoev所开发，官方测试nginx能够支支撑5万并发链接，并且cpu、内存等资源消耗却非常低，运行非常稳定。</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/02/23/Linux-JDK%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/02/23/Linux%E4%B8%8B%E7%9A%84Nginx%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -526,7 +641,7 @@ public enum JDBCType implements SQLType {
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            16
+                            18
                         </p>
                     </a>
                 </div>
@@ -550,7 +665,7 @@ public enum JDBCType implements SQLType {
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            13
+                            14
                         </p>
                     </a>
                 </div>
@@ -667,7 +782,7 @@ public enum JDBCType implements SQLType {
                 <span class="level-item">java</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">
@@ -688,7 +803,7 @@ public enum JDBCType implements SQLType {
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13.33px;">多线程</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SpringBoot/" style="font-size: 16.67px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 16.67px;">多线程</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -700,6 +815,44 @@ public enum JDBCType implements SQLType {
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -758,44 +911,6 @@ public enum JDBCType implements SQLType {
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-3.单例模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T03:38:02.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-3.单例模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-2.抽象工厂模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T01:47:57.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-2.抽象工厂模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -808,12 +923,23 @@ public enum JDBCType implements SQLType {
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2020/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -899,7 +1025,7 @@ public enum JDBCType implements SQLType {
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Java/">
                         <span class="tag">Java</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -939,9 +1065,16 @@ public enum JDBCType implements SQLType {
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/SpringBoot/">
                         <span class="tag">SpringBoot</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -955,7 +1088,7 @@ public enum JDBCType implements SQLType {
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
                         <span class="tag">多线程</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -990,6 +1123,44 @@ public enum JDBCType implements SQLType {
         
         <article class="media">
             
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习二">
@@ -1045,44 +1216,6 @@ public enum JDBCType implements SQLType {
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-3.单例模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T03:38:02.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-3.单例模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-2.抽象工厂模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T01:47:57.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-2.抽象工厂模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1095,12 +1228,23 @@ public enum JDBCType implements SQLType {
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2020/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1186,7 +1330,7 @@ public enum JDBCType implements SQLType {
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Java/">
                         <span class="tag">Java</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -1226,9 +1370,16 @@ public enum JDBCType implements SQLType {
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/SpringBoot/">
                         <span class="tag">SpringBoot</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1242,7 +1393,7 @@ public enum JDBCType implements SQLType {
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
                         <span class="tag">多线程</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

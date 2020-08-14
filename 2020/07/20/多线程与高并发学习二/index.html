@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-07-20T09:32:31.000Z">
-<meta property="article:modified_time" content="2020-07-20T09:34:12.422Z">
+<meta property="article:modified_time" content="2020-07-26T01:48:27.628Z">
 <meta property="article:author" content="陈伟锋">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="多线程">
@@ -149,7 +149,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 592 个字)
+                    7 分钟 读完 (大约 1028 个字)
                 </span>
                 
                 
@@ -166,7 +166,6 @@
 
 <p>手动上锁，使用完成后手动释放锁。</p>
 <a id="more"></a>
-
 <h4 id="尝试获取锁-try-lock"><a href="#尝试获取锁-try-lock" class="headerlink" title="尝试获取锁 try lock"></a>尝试获取锁 try lock</h4><p>尝试获取锁，当超过设置的等待时间，不再尝试获取锁。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public void method2()&#123;</span><br><span class="line">		boolean lockFlag &#x3D; false;</span><br><span class="line">		try &#123;</span><br><span class="line">			lockFlag &#x3D; lock.tryLock(10,TimeUnit.SECONDS);</span><br><span class="line">			if(lockFlag) &#123;</span><br><span class="line">				System.out.println(&quot;m2&quot;);</span><br><span class="line">			&#125;else &#123;</span><br><span class="line">				System.out.println(&quot;m2 can not get Lock&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally &#123;</span><br><span class="line">			if (lockFlag)&#123;</span><br><span class="line">				lock.unlock();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h4><p>公平锁：谁等待的时间最长谁先执行。<br>非公平锁：cpu运行随机抽取，空闲时轮到哪个线程就那个显存执行。</p>
@@ -180,6 +179,18 @@
 <h4 id="响应中断"><a href="#响应中断" class="headerlink" title="响应中断"></a>响应中断</h4><p>下面代码定义了一个锁lock，当t1死锁时，t2一直在尝试获取锁，造成堵塞。调用线程2的interrupt打断运行。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		ReentrantLock lock &#x3D; new ReentrantLock();</span><br><span class="line">		Thread t1 &#x3D; new Thread(()-&gt;&#123;</span><br><span class="line">			lock.lock();</span><br><span class="line">			System.out.println(&quot;t1 start&quot;);</span><br><span class="line">			try &#123;</span><br><span class="line">				TimeUnit.DAYS.sleep(2);</span><br><span class="line">				System.out.println(&quot;t1 end&quot;);</span><br><span class="line">			&#125; catch (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;finally &#123;</span><br><span class="line">				lock.unlock();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,&quot;t1&quot;);</span><br><span class="line">		t1.start();</span><br><span class="line">		Thread t2 &#x3D; new Thread(()-&gt;&#123;</span><br><span class="line">			boolean lockFlag &#x3D; false;</span><br><span class="line">			try &#123;</span><br><span class="line">				&#x2F;&#x2F;尝试获取锁</span><br><span class="line">				&#x2F;&#x2F;lockInterruptibly对线程interrupt做出响应。</span><br><span class="line">				lock.lockInterruptibly();</span><br><span class="line">				lockFlag &#x3D; lock.isLocked();</span><br><span class="line">				System.out.println(&quot;t2 start&quot;);</span><br><span class="line">			&#125; catch (InterruptedException e) &#123;</span><br><span class="line">				System.err.println(&quot;t2 wait broken&quot;);</span><br><span class="line">&#x2F;&#x2F;				e.printStackTrace();</span><br><span class="line">			&#125;finally &#123;</span><br><span class="line">				if (lockFlag)&#123;</span><br><span class="line">					lock.unlock();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,&quot;t2&quot;);</span><br><span class="line">		t2.start();</span><br><span class="line">		try &#123;</span><br><span class="line">			TimeUnit.SECONDS.sleep(5);</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;打断T2</span><br><span class="line">		t2.interrupt();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
+<h4 id="ReentrantLock对比Synchronized"><a href="#ReentrantLock对比Synchronized" class="headerlink" title="ReentrantLock对比Synchronized"></a>ReentrantLock对比Synchronized</h4><p>ReentrantLock可以替代Synchronized,可以完成ReentrantLock可以替代Synchronized的人和功能,使用CAS获取锁。</p>
+<p>有一些Synchronized没有的功能：</p>
+<p>trylock 尝试获取锁,可以设置等待时间。</p>
+<p>lockInterruptibly 可以中断等待.</p>
+<p>可以设置公平锁与非公平锁，synchronized只有非公平锁。</p>
+<p>ReentrantLock与Synchronized都为独占锁（悲观锁）。</p>
+<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><p>允许多个线程同时访问读取资源，写入时只允许一个线程访问资源。在写入时，所有的读取与写入线程会被阻塞。读写锁实际维护了一对锁，分别是读锁与写锁。</p>
+<p>适用于大量读取操作，写入不多的场景。在并发读取时候大大提高效率。</p>
+<p>读锁：共享锁</p>
+<p>写锁：排他锁(独占锁)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">private static int i &#x3D; 1;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		ReadWriteLock readWriteLock &#x3D; new ReentrantReadWriteLock();</span><br><span class="line">		ReentrantLock reentrantLock &#x3D; new ReentrantLock();</span><br><span class="line">		Lock readLock &#x3D; readWriteLock.readLock();</span><br><span class="line">		Lock writeLock &#x3D; readWriteLock.writeLock();</span><br><span class="line">		long start &#x3D; System.currentTimeMillis();</span><br><span class="line">		CountDownLatch countDownLatch &#x3D; new CountDownLatch(15);</span><br><span class="line">		for (int j &#x3D; 0; j &lt; 10; j++) &#123;</span><br><span class="line">			new Thread(() -&gt; &#123;</span><br><span class="line">				read(reentrantLock);</span><br><span class="line">				countDownLatch.countDown();</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		for (int j &#x3D; 0; j &lt; 5; j++) &#123;</span><br><span class="line">			int finalJ &#x3D; j;</span><br><span class="line">			new Thread(() -&gt; &#123;</span><br><span class="line">				write(reentrantLock, finalJ);</span><br><span class="line">				countDownLatch.countDown();</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		try &#123;</span><br><span class="line">			countDownLatch.await();</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		long end &#x3D; System.currentTimeMillis();</span><br><span class="line">		System.out.println(&quot;reentrantLock耗时：&quot; + (end - start) &#x2F; 1000 + &quot;秒&quot;);</span><br><span class="line"></span><br><span class="line">		long start1 &#x3D; System.currentTimeMillis();</span><br><span class="line">		CountDownLatch countDownLatch2 &#x3D; new CountDownLatch(15);</span><br><span class="line">		for (int j &#x3D; 0; j &lt; 10; j++) &#123;</span><br><span class="line">			new Thread(() -&gt; &#123;</span><br><span class="line">				read(readLock);</span><br><span class="line">				countDownLatch2.countDown();</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		for (int j &#x3D; 0; j &lt; 5; j++) &#123;</span><br><span class="line">			int finalJ &#x3D; j;</span><br><span class="line">			new Thread(() -&gt; &#123;</span><br><span class="line">				write(writeLock, finalJ);</span><br><span class="line">				countDownLatch2.countDown();</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		try &#123;</span><br><span class="line">			countDownLatch2.await();</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		long end1 &#x3D; System.currentTimeMillis();</span><br><span class="line">		System.out.println(&quot;读写锁耗时：&quot; + (end1 - start1) &#x2F; 1000 + &quot;秒&quot;);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static int read(Lock lock) &#123;</span><br><span class="line">		int temp &#x3D; 0;</span><br><span class="line">		lock.lock();</span><br><span class="line">		try &#123;</span><br><span class="line">			TimeUnit.SECONDS.sleep(1);</span><br><span class="line">			temp &#x3D; i;</span><br><span class="line">			System.out.println(&quot;read：&quot; + i);</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; finally &#123;</span><br><span class="line">			lock.unlock();</span><br><span class="line">		&#125;</span><br><span class="line">		return temp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void write(Lock lock, int val) &#123;</span><br><span class="line">		lock.lock();</span><br><span class="line">		try &#123;</span><br><span class="line">			TimeUnit.SECONDS.sleep(1);</span><br><span class="line">			System.out.println(&quot;write：&quot; + val);</span><br><span class="line">			i &#x3D; val;</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; finally &#123;</span><br><span class="line">			lock.unlock();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reentrantLock耗时：15秒</span><br><span class="line">readWriteLock耗时：6秒</span><br></pre></td></tr></table></figure>
         </div>
         
         <div class="level is-size-7 is-uppercase">
@@ -231,6 +242,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">多线程与高并发学习三</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -289,7 +307,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            16
+                            18
                         </p>
                     </a>
                 </div>
@@ -313,7 +331,7 @@
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            13
+                            14
                         </p>
                     </a>
                 </div>
@@ -368,7 +386,11 @@
         <a class="is-flex" href="#ReentrantLock">
         <span class="has-mr-6">1.1.1</span>
         <span>ReentrantLock</span>
-        </a></li></ul></li></ul></li></ul>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#读写锁">
+        <span class="has-mr-6">1.2</span>
+        <span>读写锁</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>
@@ -454,7 +476,7 @@
                 <span class="level-item">java</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">
@@ -475,7 +497,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13.33px;">多线程</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SpringBoot/" style="font-size: 16.67px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 16.67px;">多线程</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
     
@@ -487,6 +509,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -545,44 +605,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-3.单例模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T03:38:02.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-3.单例模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-2.抽象工厂模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T01:47:57.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-2.抽象工厂模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -595,12 +617,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2020/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -686,7 +719,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Java/">
                         <span class="tag">Java</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -726,9 +759,16 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/SpringBoot/">
                         <span class="tag">SpringBoot</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -742,7 +782,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
                         <span class="tag">多线程</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -777,6 +817,44 @@
         
         <article class="media">
             
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习二">
@@ -832,44 +910,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-3.单例模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T03:38:02.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-3-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-3.单例模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="设计模式-2.抽象工厂模式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-19T01:47:57.000Z">2020-06-19</time></div>
-                    <a href="/2020/06/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式-2.抽象工厂模式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -882,12 +922,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2020/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -973,7 +1024,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Java/">
                         <span class="tag">Java</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -1013,9 +1064,16 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/SpringBoot/">
                         <span class="tag">SpringBoot</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1029,7 +1087,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
                         <span class="tag">多线程</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

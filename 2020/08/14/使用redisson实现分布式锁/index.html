@@ -7,21 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Windows环境下安装RabbitMQ - AceyCWF</title>
+<title>使用redisson实现分布式锁 - AceyCWF</title>
 
 
-    <meta name="description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
+    <meta name="description" content="Redisson概述Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory Data Grid）。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows环境下安装RabbitMQ">
-<meta property="og:url" content="http://cwfsv.cn/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/index.html">
+<meta property="og:title" content="使用redisson实现分布式锁">
+<meta property="og:url" content="http://cwfsv.cn/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
 <meta property="og:site_name" content="AceyCWF">
-<meta property="og:description" content="RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。 1、安装Erlang安装Erlang需要注意RabbitMQ所依赖的版本。 rabbitmq官网上有关于erlang版本的对应关系说明：Rabbit">
+<meta property="og:description" content="Redisson概述Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory Data Grid）。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
-<meta property="article:published_time" content="2020-03-25T12:34:09.000Z">
-<meta property="article:modified_time" content="2020-06-24T06:41:54.417Z">
+<meta property="article:published_time" content="2020-08-14T03:08:08.000Z">
+<meta property="article:modified_time" content="2020-08-14T03:31:08.427Z">
 <meta property="article:author" content="陈伟锋">
-<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
 
@@ -81,7 +83,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="Windows环境下安装RabbitMQ" height="28">
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="使用redisson实现分布式锁" height="28">
             
             </a>
         </div>
@@ -138,17 +140,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-25T12:34:09.000Z">2020-03-25</time>
+                <time class="level-item has-text-grey" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 422 个字)
+                    8 分钟 读完 (大约 1205 个字)
                 </span>
                 
                 
@@ -157,32 +159,35 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Windows环境下安装RabbitMQ
+                使用redisson实现分布式锁
             
         </h1>
         <div class="content">
-            <p>RabbitMQ是一个在AMQP协议标准基础上完整的，可复用的企业消息系统。它遵循Mozilla Public License开源协议，采用 Erlang 实现的工业级的消息队列(MQ)服务器，Rabbit MQ 是建立在Erlang OTP平台上。</p>
-<h3 id="1、安装Erlang"><a href="#1、安装Erlang" class="headerlink" title="1、安装Erlang"></a>1、安装Erlang</h3><p>安装Erlang需要注意RabbitMQ所依赖的版本。</p>
-<p>rabbitmq官网上有关于erlang版本的对应关系说明：<br><a href="https://www.rabbitmq.com/which-erlang.html#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a></p>
-<p><a href="https://www.erlang.org/downloads">Erlang下载地址</a> 下载需要版本的Erlang Windows二进制文件</p>
-<p> <a href="http://erlang.org/download/otp_win64_22.3.exe">otp_win64_22.3.exe</a></p>
- <a id="more"></a>
+            <h2 id="Redisson概述"><a href="#Redisson概述" class="headerlink" title="Redisson概述"></a>Redisson概述</h2><p>Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory Data Grid）。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合各富特色的分布式服务，更进一步简化了分布式环境中程序相互之间的协作<br> <a id="more"></a></p>
+<h2 id="SpringBoot集成Redisson"><a href="#SpringBoot集成Redisson" class="headerlink" title="SpringBoot集成Redisson"></a>SpringBoot集成Redisson</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.9.1&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化连接"><a href="#初始化连接" class="headerlink" title="初始化连接"></a>初始化连接</h3><pre><code>//哨兵server配置
+private SentinelServersConfig sentinelServersConfig;
+//主从server配置
+private MasterSlaveServersConfig masterSlaveServersConfig;
+//单节点server配置
+private SingleServerConfig singleServerConfig;
+//集群server配置
+private ClusterServersConfig clusterServersConfig;
+//云托管模式配置
+private ReplicatedServersConfig replicatedServersConfig;</code></pre><p>这里我们使用单节点及集群配置</p>
+<p>applition-env.properties增加redis相关配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;单节点</span><br><span class="line">spring.redis.host&#x3D;127.0.0.1</span><br><span class="line">spring.redis.port&#x3D;6379</span><br><span class="line">spring.redis.password&#x3D;</span><br><span class="line">spring.redis.pool.max-active&#x3D;100</span><br><span class="line">spring.redis.pool.max-wait&#x3D;-1</span><br><span class="line">spring.redis.pool.max-idle&#x3D;500</span><br><span class="line">spring.redis.pool.min-idle&#x3D;10</span><br><span class="line">spring.redis.timeout&#x3D;60000</span><br><span class="line">&#x2F;&#x2F;集群</span><br><span class="line">spring.redis.cluster.nodes&#x3D;192.168.1.31:6379,192.168.1.32:6379,192.168.1.33:6379,192.168.1.34:6379,192.168.1.35:6379,192.168.1.36:6379</span><br><span class="line">spring.redis.cluster.timeout&#x3D;2000</span><br><span class="line">spring.redis.password&#x3D;</span><br><span class="line">spring.redis.pool.max-active&#x3D;500</span><br><span class="line">spring.redis.pool.max-wait&#x3D;-1</span><br><span class="line">spring.redis.pool.max-idle&#x3D;500</span><br><span class="line">spring.redis.pool.min-idle&#x3D;10</span><br><span class="line">spring.redis.timeout&#x3D;60000</span><br></pre></td></tr></table></figure>
+<p>增加配置类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Slf4j</span><br><span class="line">public class RedissonConfig &#123;</span><br><span class="line">	@Bean(&quot;redissonClient&quot;)</span><br><span class="line">	public RedissonClient redissonClient(RedisProperties redisProperties) &#123;</span><br><span class="line">		if (Objects.isNull(redisProperties)) &#123;</span><br><span class="line">			log.error(&quot;redisson-redis配置为空&quot;);</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">		RedisProperties.Cluster cluster &#x3D; redisProperties.getCluster();</span><br><span class="line">		String rp &#x3D; redisProperties.getPassword();</span><br><span class="line">		boolean clusterFlag &#x3D; cluster !&#x3D; null ? true : false;</span><br><span class="line">		if (clusterFlag) &#123;</span><br><span class="line">			log.info(&quot;redisson 集群模式：&#123;&#125;&quot;, JSONObject.toJSONString(cluster));</span><br><span class="line">			Config config &#x3D; new Config();</span><br><span class="line">			List&lt;String&gt; nodes &#x3D; cluster.getNodes();</span><br><span class="line">			List&lt;String&gt; redissonNodes &#x3D; new ArrayList(nodes.size());</span><br><span class="line">			nodes.forEach(index -&gt; redissonNodes.add(index.startsWith(&quot;redis:&#x2F;&#x2F;&quot;) ? index : &quot;redis:&#x2F;&#x2F;&quot;.concat(index)));</span><br><span class="line">			ClusterServersConfig clusterServersConfig &#x3D; config.useClusterServers()</span><br><span class="line">					&#x2F;&#x2F;集群节点</span><br><span class="line">					.addNodeAddress(redissonNodes.toArray(new String[0]))</span><br><span class="line">					&#x2F;&#x2F;集群状态扫描间隔时间，单位是毫秒</span><br><span class="line">					.setScanInterval(1000)</span><br><span class="line">					&#x2F;&#x2F;读取数据超时 3000毫秒</span><br><span class="line">					.setIdleConnectionTimeout(3000)</span><br><span class="line">					&#x2F;&#x2F;连接超时</span><br><span class="line">					.setConnectTimeout(3000)</span><br><span class="line">					&#x2F;&#x2F;执行失败最大次数默认值：3</span><br><span class="line">					.setFailedAttempts(3)</span><br><span class="line">					&#x2F;&#x2F;（命令失败重试次数） 默认值：3</span><br><span class="line">					.setRetryAttempts(3)</span><br><span class="line">					&#x2F;&#x2F;命令重试发送时间间隔，单位：毫秒 默认值：1000</span><br><span class="line">					.setRetryInterval(1000)</span><br><span class="line">					&#x2F;&#x2F;主节点连接池大小 默认值：64</span><br><span class="line">					.setMasterConnectionPoolSize(64)</span><br><span class="line">					&#x2F;&#x2F;从节点连接池大小 默认值：64</span><br><span class="line">					.setSlaveConnectionPoolSize(64)</span><br><span class="line">					&#x2F;&#x2F;等待节点回复命令的时间。该时间从命令发送成功时开始计时</span><br><span class="line">					.setTimeout(redisProperties.getTimeout());</span><br><span class="line">			if (StringGwtripUtils.isNotEmpty(rp)) &#123;</span><br><span class="line">				clusterServersConfig.setPassword(rp);</span><br><span class="line">			&#125;</span><br><span class="line">			return Redisson.create(config);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			log.info(&quot;redisson 单机模式:&#123;&#125;&quot;, JSONObject.toJSONString(redisProperties));</span><br><span class="line">			Config config &#x3D; new Config();</span><br><span class="line">			String node &#x3D; redisProperties.getHost() + &quot;:&quot; + redisProperties.getPort();</span><br><span class="line">			node &#x3D; node.startsWith(&quot;redis:&#x2F;&#x2F;&quot;) ? node : &quot;redis:&#x2F;&#x2F;&quot; + node;</span><br><span class="line">			&#x2F;&#x2F;spring.redis.pool.max-active&#x3D;500</span><br><span class="line">			&#x2F;&#x2F;spring.redis.pool.max-wait&#x3D;-1</span><br><span class="line">			&#x2F;&#x2F;spring.redis.pool.max-idle&#x3D;500</span><br><span class="line">			&#x2F;&#x2F;spring.redis.pool.min-idle&#x3D;10</span><br><span class="line">			SingleServerConfig singleServerConfig &#x3D; config.useSingleServer()</span><br><span class="line">					.setAddress(node)</span><br><span class="line">					&#x2F;&#x2F;连接超时</span><br><span class="line">					.setConnectTimeout(3000)</span><br><span class="line">					&#x2F;&#x2F;连接池大小</span><br><span class="line">					.setConnectionPoolSize(64)</span><br><span class="line">					&#x2F;&#x2F;最小空闲连接数</span><br><span class="line">					.setConnectionMinimumIdleSize(redisProperties.getPool().getMinIdle());</span><br><span class="line">			if (StringGwtripUtils.isNotEmpty(rp)) &#123;</span><br><span class="line">				singleServerConfig.setPassword(rp);</span><br><span class="line">			&#125;</span><br><span class="line">			return Redisson.create(config);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>安装完成后配置环境变量：</p>
-<p>1、变量名： ERLANG_HOME 变量值： Erlang安装目录</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/1.jpg" alt="新建系统变量"></p>
-<p>2、编辑path变量 在结尾追加%ERLANG_HOME%\bin</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/2.jpg" alt="编辑path变量"></p>
-<p>命令行测试：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ccwf&gt;erl</span><br><span class="line">Eshell V10.<span class="number">7</span>  (abort with ^G)</span><br><span class="line"><span class="number">1</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="使用Redisson实现分布式锁"><a href="#使用Redisson实现分布式锁" class="headerlink" title="使用Redisson实现分布式锁"></a>使用Redisson实现分布式锁</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public interface DistributedLocker &#123;</span><br><span class="line"></span><br><span class="line">	RLock lock(String lockKey);</span><br><span class="line"></span><br><span class="line">	RLock lock(String lockKey, int timeout);</span><br><span class="line"></span><br><span class="line">	RLock lock(String lockKey, TimeUnit unit, int timeout);</span><br><span class="line"></span><br><span class="line">	boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime);</span><br><span class="line"></span><br><span class="line">	void unlock(String lockKey);</span><br><span class="line"></span><br><span class="line">	void unlock(RLock lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class RedisDistributedLocker implements DistributedLocker &#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public RLock lock(String lockKey) &#123;</span><br><span class="line">		RLock lock &#x3D; redissonClient.getLock(lockKey);</span><br><span class="line">		lock.lock();</span><br><span class="line">		return lock;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public RLock lock(String lockKey, int timeout) &#123;</span><br><span class="line">		RLock lock &#x3D; redissonClient.getLock(lockKey);</span><br><span class="line">		lock.lock(timeout, TimeUnit.SECONDS);</span><br><span class="line">		return lock;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public RLock lock(String lockKey, TimeUnit unit, int timeout) &#123;</span><br><span class="line">		RLock lock &#x3D; redissonClient.getLock(lockKey);</span><br><span class="line">		lock.lock(timeout, unit);</span><br><span class="line">		return lock;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime) &#123;</span><br><span class="line">		RLock lock &#x3D; redissonClient.getLock(lockKey);</span><br><span class="line">		try &#123;</span><br><span class="line">			return lock.tryLock(waitTime,unit);</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void unlock(String lockKey) &#123;</span><br><span class="line">		RLock lock &#x3D; redissonClient.getLock(lockKey);</span><br><span class="line">		lock.unlock();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void unlock(RLock lock) &#123;</span><br><span class="line">		lock.unlock();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class RedisLockUtil &#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private DistributedLocker locker;</span><br><span class="line"></span><br><span class="line">	private static DistributedLocker distributedLocker;</span><br><span class="line"></span><br><span class="line">	private RedisLockUtil() &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@PostConstruct</span><br><span class="line">	private void init() &#123;</span><br><span class="line">		distributedLocker &#x3D; locker;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 加锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static RLock lock(String lockKey) &#123;</span><br><span class="line">		return distributedLocker.lock(lockKey);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 释放锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static void unlock(String lockKey) &#123;</span><br><span class="line">		distributedLocker.unlock(lockKey);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 释放锁</span><br><span class="line">	 * @param lock</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static void unlock(RLock lock) &#123;</span><br><span class="line">		distributedLocker.unlock(lock);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 带超时的锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 * @param timeout 超时时间   单位：秒</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static RLock lock(String lockKey, int timeout) &#123;</span><br><span class="line">		return distributedLocker.lock(lockKey, timeout);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 带超时的锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 * @param unit 时间单位</span><br><span class="line">	 * @param timeout 超时时间</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static RLock lock(String lockKey, int timeout, TimeUnit unit ) &#123;</span><br><span class="line">		return distributedLocker.lock(lockKey, unit, timeout);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 尝试获取锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 * @param waitTime 最多等待时间</span><br><span class="line">	 * @param leaseTime 上锁后自动释放锁时间</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static boolean tryLock(String lockKey, int waitTime, int leaseTime) &#123;</span><br><span class="line">		return distributedLocker.tryLock(lockKey, TimeUnit.SECONDS, waitTime, leaseTime);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 尝试获取锁</span><br><span class="line">	 * @param lockKey</span><br><span class="line">	 * @param unit 时间单位</span><br><span class="line">	 * @param waitTime 最多等待时间</span><br><span class="line">	 * @param leaseTime 上锁后自动释放锁时间</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public static boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime) &#123;</span><br><span class="line">		return distributedLocker.tryLock(lockKey, unit, waitTime, leaseTime);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2、安装RabbitMQ"><a href="#2、安装RabbitMQ" class="headerlink" title="2、安装RabbitMQ"></a>2、安装RabbitMQ</h3><p><a href="https://www.rabbitmq.com/install-windows.html">RabbitMQ下载地址</a> ，下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe">RabbitMQV3.8.3.exe</a> 。<br>安装mq的目录不允许有空格及中文。</p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/3.jpg" alt="运行服务"></p>
-<h3 id="3、安装RabbitMQ-Pluglins"><a href="#3、安装RabbitMQ-Pluglins" class="headerlink" title="3、安装RabbitMQ-Pluglins"></a>3、安装RabbitMQ-Pluglins</h3><p>使用命令行，cd进入安装目录下的sbin目录，执行命令：rabbitmq-plugins enable rabbitmq_management</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">D:\DevelopSoft\RabbitMQServer\rabbitmq_server<span class="literal">-3</span>.<span class="number">8.3</span>\sbin&gt;rabbitmq<span class="literal">-plugins</span> enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">Enabling plugins on node rabbit@C<span class="literal">-W</span><span class="operator">-F</span>:</span><br><span class="line">rabbitmq_management</span><br><span class="line">The following plugins have been configured:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line">Applying plugin configuration to rabbit@C<span class="literal">-W</span><span class="operator">-F</span>...</span><br><span class="line">The following plugins have been enabled:</span><br><span class="line">  rabbitmq_management</span><br><span class="line">  rabbitmq_management_agent</span><br><span class="line">  rabbitmq_web_dispatch</span><br><span class="line"></span><br><span class="line">started <span class="number">3</span> plugins.</span><br></pre></td></tr></table></figure>
-
-<p>登录管理后台：访问<a href="http://127.0.0.1:15672">http://127.0.0.1:15672</a></p>
-<p><img src="/2020/03/25/Windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85RabbitMq/4.jpg" alt="默认帐号密码"></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testRedisLock()&#123;</span><br><span class="line">    RedisUtil.set(&quot;test&quot;,null);</span><br><span class="line">    boolean l1 &#x3D; RedisLockUtil.tryLock(&quot;abc&quot;, TimeUnit.SECONDS, 5, 30);</span><br><span class="line">    System.out.println(DateTimeConvert.getNowTime()+&quot;l&quot;);</span><br><span class="line"></span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        boolean abc &#x3D; RedisLockUtil.tryLock(&quot;abc&quot;, TimeUnit.SECONDS, 5, 30);</span><br><span class="line">        System.out.println(DateTimeConvert.getNowTime()+&quot;l2&quot;);</span><br><span class="line">        if (abc)&#123;</span><br><span class="line">            System.out.println(&quot;l2unlock&quot;);</span><br><span class="line">            RedisLockUtil.unlock(&quot;abc&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    new Thread(()-&gt;&#123;</span><br><span class="line">        boolean abc &#x3D; RedisLockUtil.tryLock(&quot;abc&quot;, TimeUnit.SECONDS, 6, 30);</span><br><span class="line">        System.out.println(DateTimeConvert.getNowTime()+&quot;l3&quot;);</span><br><span class="line">        if (abc)&#123;</span><br><span class="line">            System.out.println(&quot;l3unlock&quot;);</span><br><span class="line">            RedisLockUtil.unlock(&quot;abc&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">    try &#123;</span><br><span class="line">        TimeUnit.SECONDS.sleep(10);</span><br><span class="line">    &#125; catch (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    if (l1)&#123;</span><br><span class="line">        System.out.println(&quot;l1unlock&quot;);</span><br><span class="line">        RedisLockUtil.unlock(&quot;abc&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2020-08-14 11:30:17l</span><br><span class="line">2020-08-14 11:30:22l2</span><br><span class="line">2020-08-14 11:30:23l3</span><br><span class="line">2020-08-14 11:30:27l1unlock</span><br></pre></td></tr></table></figure>
+<p>主线程l1获取锁，十秒后释放。l2,l3线程尝试五秒获取锁未获取到直接执行。</p>
 
         </div>
         
@@ -190,7 +195,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a>
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>, <a class="has-link-grey -link" href="/tags/Redis/" rel="tag">Redis</a>, <a class="has-link-grey -link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a>
                 </div>
             </div>
         </div>
@@ -236,17 +241,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/22/idea%E9%87%8D%E5%86%99toString%E6%A8%A1%E7%89%88/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">idea重写toString模版</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/">
-                <span class="level-item">Dubbo Can not lock the registry cache file 错误解决</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/">
+                <span class="level-item">多线程与高并发学习三</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -368,18 +366,30 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#1、安装Erlang">
+        <a class="is-flex" href="#Redisson概述">
         <span class="has-mr-6">1</span>
-        <span>1、安装Erlang</span>
+        <span>Redisson概述</span>
         </a></li><li>
-        <a class="is-flex" href="#2、安装RabbitMQ">
+        <a class="is-flex" href="#SpringBoot集成Redisson">
         <span class="has-mr-6">2</span>
-        <span>2、安装RabbitMQ</span>
+        <span>SpringBoot集成Redisson</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#引入依赖">
+        <span class="has-mr-6">2.1</span>
+        <span>引入依赖</span>
         </a></li><li>
-        <a class="is-flex" href="#3、安装RabbitMQ-Pluglins">
-        <span class="has-mr-6">3</span>
-        <span>3、安装RabbitMQ-Pluglins</span>
-        </a></li></ul>
+        <a class="is-flex" href="#初始化连接">
+        <span class="has-mr-6">2.2</span>
+        <span>初始化连接</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用Redisson实现分布式锁">
+        <span class="has-mr-6">2.3</span>
+        <span>使用Redisson实现分布式锁</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试">
+        <span class="has-mr-6">2.4</span>
+        <span>测试</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>
@@ -1104,7 +1114,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                     
-                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="Windows环境下安装RabbitMQ" height="28">
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="使用redisson实现分布式锁" height="28">
                     
                 </a>
                 <p class="is-size-7">
