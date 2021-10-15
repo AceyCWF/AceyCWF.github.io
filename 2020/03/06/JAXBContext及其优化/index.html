@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>JAXBContext及其优化 - AceyCWF</title>
+
+
+    <meta name="description" content="JAXBContext介绍JAXB的全称是Java Architecture for XML Binding，是一项可以通过XML产生Java对象，也可以通过Java对象产生XML的技术。JDK中关于JAXB部分有几个比较重要的接口或类，如： JAXBContext：它是程序的入口类，提供了XML&#x2F;Java绑定的操作，包括marshal、unmarshal等。 Marshaller：它负责把Jav">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAXBContext及其优化">
+<meta property="og:url" content="http://cwfsv.cn/2020/03/06/JAXBContext%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="AceyCWF">
+<meta property="og:description" content="JAXBContext介绍JAXB的全称是Java Architecture for XML Binding，是一项可以通过XML产生Java对象，也可以通过Java对象产生XML的技术。JDK中关于JAXB部分有几个比较重要的接口或类，如： JAXBContext：它是程序的入口类，提供了XML&#x2F;Java绑定的操作，包括marshal、unmarshal等。 Marshaller：它负责把Jav">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cwfsv.cn/images/og_image.png">
+<meta property="article:published_time" content="2020-03-06T12:14:10.000Z">
+<meta property="article:modified_time" content="2021-10-15T15:50:29.260Z">
+<meta property="article:author" content="陈伟锋">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JAXB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cwfsv.cn/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2020/03/04/C9E7v2V6kiKoaNt.png" alt="JAXBContext及其优化" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/AceyCWF">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-06T12:14:10.000Z">2020-03-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 读完 (大约 2404 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                JAXBContext及其优化
+            
+        </h1>
+        <div class="content">
+            <h2 id="JAXBContext介绍"><a href="#JAXBContext介绍" class="headerlink" title="JAXBContext介绍"></a>JAXBContext介绍</h2><p>JAXB的全称是Java Architecture for XML Binding，是一项可以通过XML产生Java对象，也可以通过Java对象产生XML的技术。JDK中关于JAXB部分有几个比较重要的接口或类，如：</p>
+<p><strong>JAXBContext</strong>：它是程序的入口类，提供了XML/Java绑定的操作，包括marshal、unmarshal等。</p>
+<p><strong>Marshaller</strong>：它负责把Java对象序列化为对应的XML。</p>
+<p><strong>Unmarshaller</strong>：它负责把XML反序列化为对应的Java对象。</p>
+<a id="more"></a>
+
+<h2 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h2><h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、获取一个基于某个class的JAXBContext，即JAXB上下文</span></span><br><span class="line">JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());</span><br><span class="line"><span class="comment">//2、从上下文中获取Marshaller对象，用作将bean(转换)为xml</span></span><br><span class="line">Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line"><span class="comment">//3、设置一些序列化时需要的指定的配置</span></span><br><span class="line"><span class="comment">//编码格式 （默认编码就是utf-8）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_ENCODING, <span class="string">"UTF-8"</span>);</span><br><span class="line"><span class="comment">//是否格式化生成的xml串,即按标签自动换行，否则就是一行输出</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);</span><br><span class="line"><span class="comment">//是否省略xm头声明信息 默认不省略（false）</span></span><br><span class="line">marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);</span><br><span class="line">StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line"><span class="comment">//4、将对象进行序列化</span></span><br><span class="line">marshaller.marshal(obj, writer);</span><br><span class="line">String result = writer.toString();</span><br><span class="line">System.out.println(<span class="string">"JavaBean转xml:"</span> + result);</span><br></pre></td></tr></table></figure>
+
+<p>1、  创建一个JAXB上下文对象。</p>
+<p>2、  利用JAXB上下文对象创建对应的Marshaller对象。</p>
+<p>3、  指定序列化时的配置参数，具体可以设置的参数和对应的参数的含义可以参考API文档。</p>
+<p>4、  最后一步是将对应的对象序列化到一个Writer、OutputStream、File等输出对象中，具体可以参考Marshaller接口的API文档。</p>
+<p>使用JAXB进行对象的序列化时对应的对象类型必须是<strong>javax.xml.bind.JAXBElement</strong>类型，<br>或者是使用了<strong>javax.xml.bind.annotation.XmlRootElement</strong>注解标注的类型。</p>
+<p><strong>XmlRootElement</strong>用于标注在class上面，表示把一个class映射为一个XML Element对象。<br>与之相配合使用的注解通常还有XmlElement和XmlAttribute。</p>
+<p><strong>XmlElement</strong>注解用于标注在class的属性上，用于把一个class的属性映射为一个XML Element对象。</p>
+<p><strong>XmlAttribute</strong>注解用于标注在class的属性上，用于把一个class的属性映射为其class对应的XML Element上的一个属性。<br>默认情况下，当我们的一个属性没有使用XmlElement标注时也会被序列化为Xml元素的一个子元素，<br>如果我们不希望Java对象中的某个属性被序列化则可以在对应的属性或对应的get方法上采用XMLTransient进行标注。</p>
+<h3 id="JavaBean实例类"><a href="#JavaBean实例类" class="headerlink" title="JavaBean实例类"></a>JavaBean实例类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="keyword">private</span> String addres;</span><br><span class="line">    <span class="keyword">private</span> String area;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, String gender, String addres, String area)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.gender = gender;</span><br><span class="line">        <span class="keyword">this</span>.addres = addres;</span><br><span class="line">        <span class="keyword">this</span>.area = area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.gender = gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAddres</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> addres;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddres</span><span class="params">(String addres)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addres = addres;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getArea</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setArea</span><span class="params">(String area)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.area = area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> +</span><br><span class="line">                <span class="string">"id="</span> + id +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", gender='"</span> + gender + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", addres='"</span> + addres + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", area='"</span> + area + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> JAXBException </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    person.setId(<span class="number">1</span>);</span><br><span class="line">    person.setAddres(<span class="string">"北京市朝阳区xxx"</span>);</span><br><span class="line">    person.setGender(<span class="string">"男"</span>);</span><br><span class="line">    person.setName(<span class="string">"CWF"</span>);</span><br><span class="line">    person.setArea(<span class="string">"北京市"</span>);</span><br><span class="line">    <span class="comment">//1、获取一个基于某个class的JAXBContext，即JAXB上下文</span></span><br><span class="line">    JAXBContext jaxbContext = JAXBContext.newInstance(person.getClass());</span><br><span class="line">    <span class="comment">//2、从上下文中获取Marshaller对象，用作将bean(转换)为xml</span></span><br><span class="line">    Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">    <span class="comment">//3、设置一些序列化时需要的指定的配置</span></span><br><span class="line">    <span class="comment">//编码格式 （默认编码就是utf-8）</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_ENCODING, <span class="string">"UTF-8"</span>);</span><br><span class="line">    <span class="comment">//是否格式化生成的xml串,即按标签自动换行，否则就是一行输出</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);</span><br><span class="line">    <span class="comment">//是否省略xm头声明信息 默认不省略（false）</span></span><br><span class="line">    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);</span><br><span class="line">    StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line">    <span class="comment">//4、将对象进行序列化</span></span><br><span class="line">    marshaller.marshal(person, writer);</span><br><span class="line">    String result = writer.toString();</span><br><span class="line">    System.out.println(<span class="string">"JavaBean转xml:"</span> + result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">JavaBean转xml:</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">    &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String xmlSource = <span class="string">"&lt;?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?&gt;&lt;person&gt;&lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;&lt;area&gt;北京市&lt;/area&gt;&lt;gender&gt;男&lt;/gender&gt;&lt;id&gt;1&lt;/id&gt;&lt;name&gt;CWF&lt;/name&gt;&lt;/person&gt;"</span>;</span><br><span class="line"><span class="comment">//1、创建一个指定class的JAXB上下文对象</span></span><br><span class="line">JAXBContext context = JAXBContext.newInstance(Person<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="comment">//2、通过JAXBContext对象创建对应的Unmarshaller对象。</span></span><br><span class="line">Unmarshaller unmarshaller = context.createUnmarshaller();</span><br><span class="line"><span class="comment">//3、调用Unmarshaller对象的unmarshal方法进行反序列化，接收的参数可以是一个InputStream、Reader、File等</span></span><br><span class="line">StringReader stringReader = <span class="keyword">new</span> StringReader(xmlSource);</span><br><span class="line">Person person = (Person) unmarshaller.unmarshal(stringReader);</span><br><span class="line">System.out.println(person.toString());</span><br></pre></td></tr></table></figure>
+
+<p>Unmarshaller对象在提供了一系列的unmarshal重载方法，对应的参数类型可以是File、InputStream、Reader等，具体的可以查看对应的API文档。</p>
+<h3 id="JAXB工具类"><a href="#JAXB工具类" class="headerlink" title="JAXB工具类"></a>JAXB工具类</h3><p>从jdk1.7开始，JAXB就对解组和编组的方法进行了更简单的封装，所以实际项目中除非自己要进行个性化设置，否则大可不用自己再创建JAXBContext实例，直接通过JAXB静态调用相应的工具方法就行了，于是上面的测试方法可以写的更简练些：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="string">"CWF"</span>,<span class="string">"男"</span>,<span class="string">"北京市朝阳区xxx"</span>,<span class="string">"北京市"</span>);</span><br><span class="line">    StringWriter w = <span class="keyword">new</span> StringWriter();</span><br><span class="line">    JAXB.marshal(person, <span class="keyword">new</span> StreamResult(w));</span><br><span class="line">    String parseResult = w.toString();</span><br><span class="line">    System.out.println(<span class="string">"序列化："</span>+ parseResult);</span><br><span class="line">    StringReader reader = <span class="keyword">new</span> StringReader(parseResult);</span><br><span class="line">    Person person2 = JAXB.unmarshal(reader, Person<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    System.out.println(<span class="string">"反序列化:"</span>+person2.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">序列化：&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">    &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;0&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br><span class="line"></span><br><span class="line">反序列化:Person&#123;id=<span class="number">0</span>, name=<span class="string">'CWF'</span>, gender=<span class="string">'男'</span>, addres=<span class="string">'北京市朝阳区xxx'</span>, area=<span class="string">'北京市'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><h3 id="XmlRootElement"><a href="#XmlRootElement" class="headerlink" title="@XmlRootElement"></a>@XmlRootElement</h3><h4 id="作用和用法："><a href="#作用和用法：" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p>类级别的注解，将类映射为xml全局元素，也就是根元素。就像spring配置文件中的beans。</p>
+<p>常与 <strong>@XmlType</strong>，<strong>@XmlAccessorType</strong>，<strong>@XmlAccessorOrder连用</strong>。</p>
+<h4 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h4><p>该注解含有<strong>name</strong>和<strong>namespace</strong>两个属性。</p>
+<p>namespace属性用于指定生成的元素所属的命名空间。</p>
+<p>name属性用于指定生成元素的名字，若不指定则默认使用类名小写作为元素名。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@XmlRootElement</span>(name = <span class="string">"xingming"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line"> 生成的xml:</span><br><span class="line"> &lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line"> &lt;xingming&gt;</span><br><span class="line">     &lt;addres&gt;北京市朝阳区xxx&lt;/addres&gt;</span><br><span class="line">     &lt;area&gt;北京市&lt;/area&gt;</span><br><span class="line">     &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">     &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">     &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line"> &lt;/xingming&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="XmlElement"><a href="#XmlElement" class="headerlink" title="@XmlElement"></a>@XmlElement</h3><h4 id="作用和用法：-1"><a href="#作用和用法：-1" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>字段，方法，参数级别的注解</strong>。<br>该注解可以将被注解的字段(非静态)，或者被注解的get/set方法对应的字段映射为本地元素，也就是子元素。默认使用字段名或get/set方法去掉前缀剩下部分小写作为元素名(在字段名和get/set方法符合命名规范的情况下)。</p>
+<p>常与 <strong>@XmlValue</strong>，<strong>@XmlJavaTypeAdapter</strong>，<strong>@XmlElementWrapper</strong>连用。</p>
+<h4 id="属性：-1"><a href="#属性：-1" class="headerlink" title="属性："></a>属性：</h4><p>属性常用的属性有有：name、nillable、required、namespace、defaultValue</p>
+<p>name属性可以指定生成元素的名字<br>nillable属性可以指定元素的文本值是否可以为空，默认为false。<br>required属性可以指定该元素是否必须出现，默认为false<br>namespace属性可以指定该元素所属的命名空间<br>defaultValue属性可以指定该元素默认的文本值</p>
+<h3 id="XmlAttribute"><a href="#XmlAttribute" class="headerlink" title="@XmlAttribute"></a>@XmlAttribute</h3><h4 id="作用和用法：-2"><a href="#作用和用法：-2" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>字段和方法级别的注解</strong>。该注解会将字段或get/set方法对应的字段映射成本类对应元素的属性，属性名默认使用字段名或get/set方法去掉前缀剩下部分首字母小写(在字段名和get/set方法符合命名规范的情况下)。</p>
+<h4 id="属性：-2"><a href="#属性：-2" class="headerlink" title="属性："></a>属性：</h4><p>该注解有name，required，namespace三个属性。用法和@XmlElement注解相同</p>
+<h3 id="XmlTransient"><a href="#XmlTransient" class="headerlink" title="@XmlTransient"></a>@XmlTransient</h3><h4 id="作用和用法：-3"><a href="#作用和用法：-3" class="headerlink" title="作用和用法："></a>作用和用法：</h4><p><strong>类，字段，方法级别的注解</strong>。可使JAXB在映射xml元素时忽略被注解的类，字段，get/set对应字段。<br><strong>需要注意的是该注解与所有其他JAXB注释相互排斥，也就是说与其他注释连用就会报错</strong>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@XmlTransient</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddres</span><span class="params">(String addres)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.addres = addres;</span><br><span class="line">&#125;</span><br><span class="line">生成xml:</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;area&gt;华北地区&lt;/area&gt;</span><br><span class="line">    &lt;gender&gt;男&lt;/gender&gt;</span><br><span class="line">    &lt;id&gt;1&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;CWF&lt;/name&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JAXB优化"><a href="#JAXB优化" class="headerlink" title="JAXB优化"></a>JAXB优化</h2><p>JAXBContext的实例需要通过JAXBContext.newInstance(..)方法产生，JAXBContext中定义了重载的5个newInstance(..)方法如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath, ClassLoader classLoader )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( String contextPath, ClassLoader classLoader, Map&lt;String,?&gt;  properties  )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( Class... classesToBeBound )</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JAXBContext <span class="title">newInstance</span><span class="params">( Class[] classesToBeBound, Map&lt;String,?&gt; properties )</span></span></span><br></pre></td></tr></table></figure>
+
+<p>上述5个方法的区别在于是基于package的还是基于class的。</p>
+<p>contextPath用于指定需要绑定XML的Java类所在的包定义。</p>
+<p>classLoader用于指定使用的类加载器，未指定时将使用当前线程上下文所绑定的类加载器。</p>
+<p>properties用于指定JAXB实现者特定的属性;classesToBeBound用于直接指定需要绑定的Java类。</p>
+<p>每次在创建JAXBContext实例时，JAXBContext内部都需要维护好Java类和XML之间的映射关系，这个操作是十分消耗性能的。但JAXBContext是线程安全的，可以共享。</p>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    String xmlResult = testServiceImpl.getResourceStr();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">5</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">int</span> times = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;times; i++) &#123;</span><br><span class="line">            JAXBContext jaxbContext = JAXBContext.newInstance(TestRS<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">            marshaller.marshal(<span class="keyword">new</span> TestRS(), <span class="keyword">new</span> StringWriter());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> t2 = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"不共用JAXBContext耗时："</span> + (t2-t1) + <span class="string">"ms"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> t3 = System.currentTimeMillis();</span><br><span class="line">        JAXBContext jaxbContext = JAXBContext.newInstance(TestRS<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;times; i++) &#123;</span><br><span class="line">            Marshaller marshaller = jaxbContext.createMarshaller();</span><br><span class="line">            marshaller.marshal(<span class="keyword">new</span> TestRS(), <span class="keyword">new</span> StringWriter());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> t4 = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"共用JAXBContext耗时："</span> + (t4-t3) + <span class="string">"ms"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环测试5次，每次分别在共享JAXBContext和不共享JAXBContext的情况下进行五次marshal操作，<br>由于这里我们不关心生成的XML，也避免输出到控制台或文件中的IO影响，这里每次都创建一个StringWriter，StringWriter是基于内存操作的。</p>
+<p>执行结果:<br>不共用JAXBContext耗时：17953ms</p>
+<p>共用JAXBContext耗时：3548ms</p>
+<p>不共用JAXBContext耗时：17406ms</p>
+<p>共用JAXBContext耗时：3414ms</p>
+<p>不共用JAXBContext耗时：19187ms</p>
+<p>共用JAXBContext耗时：3703ms</p>
+<p>不共用JAXBContext耗时：18819ms</p>
+<p>共用JAXBContext耗时：3369ms</p>
+<p>不共用JAXBContext耗时：17401ms</p>
+<p>共用JAXBContext耗时：3728ms</p>
+<p>从测试结果我们可以很明显的看到共享JAXBContext的情况下性能有很明显的提升。<br>共享JAXB时如果我们的所有的应用场景需要使用到的Class比较少时我们可以简单的在创建JAXBContext对象时传递所有需哟使用到的Class，<br>把它保存起来之后都可以一直这样在我们的应用中使用它了。<br>但是如果Class的定义在进行XML转换为Java对象时有冲突就不能这么做了，<br>比如你有一个Person1和Person2两个Person类，它们映射的XML节点都是person，<br>那么在把XML节点person转换为Java对象时是转换为Person1还是Person2呢？<br>有这种场景获取Class相对较多时建议创建一个JaxbUtil工具类，所有的JAXBContext对象都由该工具类产生，在该工具类内部实现JAXBContext的重用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">JAXBContextUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    private <span class="keyword">static</span> <span class="built_in">Map</span>&lt;List&lt;Class&lt;?&gt;&gt;, JAXBContext&gt; jaxbContextMap =  <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public <span class="keyword">static</span> JAXBContext getJAXBContext(Class&lt;?&gt;classes) throws JAXBException &#123;</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; classList = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(classes));</span><br><span class="line">        <span class="keyword">if</span> (!jaxbContextMap.containsKey(classList)) &#123;</span><br><span class="line">            JAXBContext jaxbContext = JAXBContext.newInstance(classes);</span><br><span class="line">            jaxbContextMap.put(classList, jaxbContext);</span><br><span class="line">            <span class="keyword">return</span> jaxbContext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jaxbContextMap.get(classList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是虽然JAXBContext是<strong>线程安全的</strong>，但是它由它产生的<strong>Marshaller</strong>和<strong>Unmarshaller</strong>对象是<strong>线程不安全</strong>的，<strong>切勿进行重用</strong>。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/JAXB/" rel="tag">JAXB</a>, <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/UOsMcBuCPlXNJ9t.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://i.loli.net/2020/03/04/PQcjSnCY1Zsov8B.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/23/Dubbo%20Can%20not%20lock%20the%20registry%20cache%20file%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Dubbo Can not lock the registry cache file 错误解决</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/04/MySQL%20date,datetime,timestamp%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                <span class="level-item">MySQL date,datetime,timestamp的区别</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://i.loli.net/2020/03/04/r5l4ETChtnMg7XU.png" alt="陈伟锋">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        陈伟锋
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Java开发
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京-朝阳</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            18
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            3
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/AceyCWF" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/AceyCWF">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Email" href="mailto:ccwf@vip.qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#JAXBContext介绍">
+        <span class="has-mr-6">1</span>
+        <span>JAXBContext介绍</span>
+        </a></li><li>
+        <a class="is-flex" href="#序列化与反序列化">
+        <span class="has-mr-6">2</span>
+        <span>序列化与反序列化</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#序列化">
+        <span class="has-mr-6">2.1</span>
+        <span>序列化</span>
+        </a></li><li>
+        <a class="is-flex" href="#JavaBean实例类">
+        <span class="has-mr-6">2.2</span>
+        <span>JavaBean实例类</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试方法">
+        <span class="has-mr-6">2.3</span>
+        <span>测试方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#反序列化">
+        <span class="has-mr-6">2.4</span>
+        <span>反序列化</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAXB工具类">
+        <span class="has-mr-6">2.5</span>
+        <span>JAXB工具类</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#注解">
+        <span class="has-mr-6">3</span>
+        <span>注解</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#XmlRootElement">
+        <span class="has-mr-6">3.1</span>
+        <span>@XmlRootElement</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：">
+        <span class="has-mr-6">3.1.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：">
+        <span class="has-mr-6">3.1.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlElement">
+        <span class="has-mr-6">3.2</span>
+        <span>@XmlElement</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-1">
+        <span class="has-mr-6">3.2.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：-1">
+        <span class="has-mr-6">3.2.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlAttribute">
+        <span class="has-mr-6">3.3</span>
+        <span>@XmlAttribute</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-2">
+        <span class="has-mr-6">3.3.1</span>
+        <span>作用和用法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性：-2">
+        <span class="has-mr-6">3.3.2</span>
+        <span>属性：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#XmlTransient">
+        <span class="has-mr-6">3.4</span>
+        <span>@XmlTransient</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#作用和用法：-3">
+        <span class="has-mr-6">3.4.1</span>
+        <span>作用和用法：</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#JAXB优化">
+        <span class="has-mr-6">4</span>
+        <span>JAXB优化</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://weibo.com/AceyCWF" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">微博</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">weibo.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://lingcoder.gitee.io/onjava8/#/sidebar" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">《On Java 8》</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">lingcoder.gitee.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://dubbo.apache.org/zh-cn/docs/user/preface/background.html" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">dubbo官方文档</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">dubbo.apache.org</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/MySQL/">
+            <span class="level-start">
+                <span class="level-item">MySQL</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">13</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">
+            <span class="level-start">
+                <span class="level-item">系统运维</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 10px;">Dubbo</a> <a href="/tags/JAXB/" style="font-size: 10px;">JAXB</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 13.33px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SpringBoot/" style="font-size: 16.67px;">SpringBoot</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 16.67px;">多线程</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习二">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-20T09:32:31.000Z">2020-07-20</time></div>
+                    <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习二</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%80/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习一">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-06T03:56:54.000Z">2020-07-06</time></div>
+                    <a href="/2020/07/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%80/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习一</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/BlogTitileImg/docker_1.jpg" alt="Docker部署SpringBoot程序包">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-30T01:14:34.000Z">2020-06-30</time></div>
+                    <a href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker部署SpringBoot程序包</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Dubbo/">
+                        <span class="tag">Dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JAXB/">
+                        <span class="tag">JAXB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">12</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MyBatis/">
+                        <span class="tag">MyBatis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MySQL/">
+                        <span class="tag">MySQL</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Nginx/">
+                        <span class="tag">Nginx</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RabbitMQ/">
+                        <span class="tag">RabbitMQ</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ide/">
+                        <span class="tag">ide</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用redisson实现分布式锁">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-14T03:08:08.000Z">2020-08-14</time></div>
+                    <a href="/2020/08/14/%E4%BD%BF%E7%94%A8redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用redisson实现分布式锁</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习三">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-26T01:45:35.000Z">2020-07-26</time></div>
+                    <a href="/2020/07/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习三</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习二">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-20T09:32:31.000Z">2020-07-20</time></div>
+                    <a href="/2020/07/20/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%BA%8C/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习二</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%80/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="多线程与高并发学习一">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-06T03:56:54.000Z">2020-07-06</time></div>
+                    <a href="/2020/07/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%80/" class="title has-link-black-ter is-size-6 has-text-weight-normal">多线程与高并发学习一</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/BlogTitileImg/docker_1.jpg" alt="Docker部署SpringBoot程序包">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-30T01:14:34.000Z">2020-06-30</time></div>
+                    <a href="/2020/06/30/Docker%E9%83%A8%E7%BD%B2SpringBoot%E7%A8%8B%E5%BA%8F%E5%8C%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker部署SpringBoot程序包</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Dubbo/">
+                        <span class="tag">Dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JAXB/">
+                        <span class="tag">JAXB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">12</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MyBatis/">
+                        <span class="tag">MyBatis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MySQL/">
+                        <span class="tag">MySQL</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Nginx/">
+                        <span class="tag">Nginx</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RabbitMQ/">
+                        <span class="tag">RabbitMQ</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ide/">
+                        <span class="tag">ide</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                    
+                    <img src="https://i.loli.net/2020/03/04/vMN8FZCVWSm1tJI.jpg" alt="JAXBContext及其优化" height="28">
+                    
+                </a>
+                <p class="is-size-7">
+                    &copy; 2021 陈伟锋&nbsp;
+                    Powered by <a href="https://github.com/AceyCWF" target="_blank" rel="noopener">AceyCWF</a>
+                    
+                </p>
+                <!--备案信息-->
+                <a class="footer-logo is-block has-mb-6" href="https://beian.miit.gov.cn/" style="color:#4a4a4a"
+                    target="_blank">
+                    <img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+                    京ICP备17047151号-1
+                </a>
+
+                <!--网站访问量与访客量统计-->
+                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!--网站访问量与访客量统计-->
+                <br/>
+                <!--网站运行时长统计-->
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+                <script>
+                    var now = new Date();
+                    function createtime() {
+                        var grt = new Date("02/23/2020 02:00:00");//此处修改你的建站时间或者网站上线时间
+                        now.setTime(now.getTime() + 250);
+                        days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+                        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+                        if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+                        mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+                        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+                        snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+                        document.getElementById("timeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+                        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+                    }
+                    setInterval("createtime()", 250);
+                </script>
+                <!--网站运行时长统计-->
+
+            </div>
+            <div class="level-end">
+                
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank"
+                            rel="noopener" title="GitHub"
+                            href="https://github.com/AceyCWF">
+                            
+                            <i class="fab fa-github"></i>
+                            
+                        </a>
+                    </p>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://cwfsv.cn',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
